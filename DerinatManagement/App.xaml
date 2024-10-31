@@ -12,21 +12,21 @@
                 <ResourceDictionary Source="/Styles/TextBox.xaml" />
                 <ResourceDictionary>
                     <!-- Define theme colors -->
-                    <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="White"/>
+                    <!--<SolidColorBrush x:Key="TextControlBackgroundFocused" Color="White"/>-->
                     <SolidColorBrush x:Key="PrimaryColor" Color="#704232"/>
                     <SolidColorBrush x:Key="SecondaryColor" Color="#0050EF"/>
-                    <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#0cb8f6"/>
-                    <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#4bc6f2"/>
-                    <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="#CCCCCC"/>
+                    <!--<SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#0cb8f6"/>
+                    <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#4bc6f2"/>-->
+                    <!--<SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="#CCCCCC"/>-->
                     <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Black"/>
                     <SolidColorBrush x:Key="ButtonForegroundPressed" Color="Black"/>
-                    <SolidColorBrush x:Key="ButtonForegroundDisabled" Color="#666666"/>
-                    <SolidColorBrush x:Key="TabViewItemHeaderBackground" Color="White"/>
-                    <SolidColorBrush x:Key="TabViewItemHeaderForeground" Color="Black"/>
+                    <!--<SolidColorBrush x:Key="ButtonForegroundDisabled" Color="#666666"/>-->
+                    <!--<SolidColorBrush x:Key="TabViewItemHeaderBackground" Color="White"/>-->
+                    <!--<SolidColorBrush x:Key="TabViewItemHeaderForeground" Color="Black"/>
                     <SolidColorBrush x:Key="TabViewItemHeaderForegroundSelected" Color="Black"/>
-                    <SolidColorBrush x:Key="TextControlForegroundFocused" Color="White"/>
+                    <SolidColorBrush x:Key="TextControlForegroundFocused" Color="Black"/>-->
                     <!-- Define text colors -->
-                    <SolidColorBrush x:Key="DefaultTextColor" Color="{StaticResource PrimaryColor}"/>
+                    <!--<SolidColorBrush x:Key="DefaultTextColor" Color="{StaticResource PrimaryColor}"/>-->
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

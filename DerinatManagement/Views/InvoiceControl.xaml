@@ -10,7 +10,7 @@
         <vm:InvoiceControlViewModel />
     </UserControl.DataContext>
 
-    <StackPanel x:Name="InvoicePanel" Margin="10,0,10,10" Background="White">
+    <StackPanel x:Name="InvoicePanel" Margin="3,0,3,3" Background="White">
         <!-- Ngày và Giờ hệ thống cập nhật liên tục -->
         <StackPanel Orientation="Horizontal" Margin="0,0,0,10"  Padding="10">
             <TextBlock Text="Ngày tạo: " VerticalAlignment="Center" Margin="0,0,5,0" Foreground="Black"/>
@@ -18,12 +18,12 @@
             <TextBlock Text="Giờ: " VerticalAlignment="Center" Margin="20,0,5,0" Foreground="Black"/>
             <TextBlock Text="{x:Bind ViewModel.CurrentTime, Mode=OneWay}" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="Black"/>
             <TextBlock Text="Dịch vụ: " VerticalAlignment="Center" Margin="20,0,5,0" Foreground="Black"/>
-            <ComboBox Width="150" SelectedItem="{x:Bind ViewModel.Invoice.ServiceType, Mode=TwoWay}" Background="White">
+            <!--<ComboBox Width="150" SelectedItem="{x:Bind ViewModel.Invoice.ServiceType, Mode=TwoWay}" Background="White">
                 <ComboBoxItem Content="Coffee Shop"/>
-                <!-- Thêm các mục dịch vụ khác nếu cần thiết -->
-            </ComboBox>
+                --><!-- Thêm các mục dịch vụ khác nếu cần thiết --><!--
+            </ComboBox>-->
         </StackPanel>
-
+        
         <!-- Headers for the columns -->
         <Grid Margin="15" >
             <Grid.ColumnDefinitions>
@@ -31,11 +31,12 @@
                 <ColumnDefinition Width="50"/>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Product Name" FontWeight="Bold" Grid.Column="0" Margin="5,0,5,0" Foreground="Black"/>
-            <TextBlock Text="Quantity" FontWeight="Bold" Grid.Column="1" Margin="5,0,5,0" Foreground="Black"/>
-            <TextBlock Text="Unit Price" FontWeight="Bold" Grid.Column="2" Margin="5,0,5,0" Foreground="Black"/>
-            <TextBlock Text="Total" FontWeight="Bold" Grid.Column="3" Margin="5,0,5,0" Foreground="Black"/>
+            <TextBlock Text="Product Name" FontWeight="Bold" Grid.Column="0" Margin="2,0,2,0" Foreground="Black"/>
+            <TextBlock Text="Quantity" FontWeight="Bold" Grid.Column="1" Margin="2,0,2,0" Foreground="Black"/>
+            <TextBlock Text="Unit Price" FontWeight="Bold" Grid.Column="2" Margin="2,0,2,0" Foreground="Black"/>
+            <TextBlock Text="Total" FontWeight="Bold" Grid.Column="3" Margin="2,0,2,0" Foreground="Black"/>
         </Grid>
         <Border Height="1" Background="#cbaa8e" HorizontalAlignment="Stretch" Margin="0,10,0,10"/>
 
@@ -45,21 +46,27 @@
             <ItemsControl ItemsSource="{x:Bind ViewModel.GetInvoiceItems()}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="model:InvoiceItem">
-                        <StackPanel  Padding="10">
-                            <Grid Margin="5">
+                        <StackPanel Padding="5,0,0,0">
+                            <Grid Margin="1">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="200"/>
-                                    <ColumnDefinition Width="50"/>
-                                    <ColumnDefinition Width="100"/>
-                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="20*"/>
+                                    <ColumnDefinition Width="10*"/>
+                                    <ColumnDefinition Width="10*"/>
+                                    <ColumnDefinition Width="10*"/>
+                                    <ColumnDefinition Width="8*"/>
+                                    <!-- Cột cho nút xóa -->
                                 </Grid.ColumnDefinitions>
-                                <StackPanel Grid.Column="0" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                <StackPanel Grid.Column="0" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <TextBlock Text="{x:Bind Name}" TextWrapping="Wrap" Foreground="Black"/>
                                     <TextBlock Text="{x:Bind Note, Mode=TwoWay}" Width="200" Height="20" FontSize="12" Margin="0,5,0,0" Foreground="Black" Opacity="0.5"/>
                                 </StackPanel>
-                                <TextBox Text="{x:Bind Quantity, Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" Foreground="Black" Style="{StaticResource TextBox}"/>
-                                <TextBlock Text="{x:Bind Price, Mode=OneWay}" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" Foreground="Black"/>
-                                <TextBlock Text="{x:Bind Total, Mode=OneWay}" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" Foreground="Black"/>
+                                <TextBox Text="{x:Bind Quantity, Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1" Foreground="Black" Style="{StaticResource TextBox}"/>
+                                <TextBlock Text="{x:Bind Price, Mode=OneWay}" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1" Foreground="Black"/>
+                                <TextBlock Text="{x:Bind Total, Mode=OneWay}" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1" Foreground="Black"/>
+                                <!-- Nút xóa mục -->
+                                <Button Grid.Column="4" Margin="2" Foreground="Red" Background="Transparent" Click="DeleteButton_Click">
+                                    <FontIcon Glyph="&#xE74D;" FontSize="12"/>
+                                </Button>
                             </Grid>
                             <Border Height="1" Background="#cbaa8e" HorizontalAlignment="Stretch" Margin="0,10,0,10" Opacity="0.5" Padding="10"/>
                         </StackPanel>

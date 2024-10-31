@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
+    Foreground="Black"
     Background="#f5f6f8">
 
     <Grid>
@@ -23,12 +24,17 @@
                 <Button Content="Phòng Bán" Background="{StaticResource PrimaryColor}" Margin="5" Click="PendingOrder_Click" Foreground="White"/>
                 <Button Content="Thực Đơn" Background="{StaticResource PrimaryColor}" Margin="5" Click="ViewCategory_Click" Foreground="White"/>
                 <Border CornerRadius="5" Padding="0" Height="40">
-                    <TextBox AutomationProperties.Name="simple TextBox" Height="30" MinWidth="400" PlaceholderForeground="Black" PlaceholderText="Tìm kiếm sản phẩm" Foreground="Black"/>
+                    <AutoSuggestBox PlaceholderText="Tìm kiếm sản phẩm" Foreground="Black" Height="35" MinWidth="400"
+                        TextChanged="Control2_TextChanged"
+                        QueryIcon="Find"
+                        QuerySubmitted="Control2_QuerySubmitted"
+                        SuggestionChosen="Control2_SuggestionChosen" />
                     <Border.Shadow>
                         <ThemeShadow />
                     </Border.Shadow>
                 </Border>
             </StackPanel>
+
             <!-- Container for InvoiceControl -->
             <StackPanel x:Name="ContentCenter">
                 

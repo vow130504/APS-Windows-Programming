@@ -25,4 +25,12 @@ public sealed partial class InvoiceControl : UserControl
     {
         // Xử lý logic thanh toán ở đây
     }
+    private void DeleteButton_Click(object sender, RoutedEventArgs e)
+    {
+        // Kiểm tra xem nút đã được bấm có thuộc một sản phẩm nào
+        if (sender is Button deleteButton && deleteButton.DataContext is InvoiceItem itemToDelete)
+        {
+            ViewModel.Invoice.RemoveItem(itemToDelete);
+        }
+    }
 }

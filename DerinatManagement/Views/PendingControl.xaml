@@ -34,8 +34,8 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel>
                             <TextBlock Text="{x:Bind InvoiceNumber}" FontSize="18" FontWeight="SemiBold"/>
-                            <TextBlock Text="{x:Bind ServiceType}" FontSize="18" FontWeight="SemiBold"/>
-                            <TextBlock Text="Quantity: {x:Bind Quantity}" FontSize="14" Foreground="Gray"/>
+                            <TextBlock Text="{x:Bind TableNumber}" FontSize="18" FontWeight="SemiBold"/>
+                            <!--<TextBlock Text="Quantity: {x:Bind Quantity}" FontSize="14" Foreground="Gray"/>-->
                         </StackPanel>
                         <Button Content="Complete"
                                 Grid.Column="1"

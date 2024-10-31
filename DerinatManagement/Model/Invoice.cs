@@ -10,15 +10,15 @@ namespace DerinatManagement.Model;
 public class Invoice:INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler PropertyChanged;
-    public string InvoiceNumber
+    public int InvoiceNumber
     {
-        get;
+        get;set;
     }
-    public DateTime DateCreated
+    public DateTime CreatedTime
     {
-        get;
+        get;set;
     }
-    public string ServiceType
+    public int TableNumber
     {
         get; set;
     }
@@ -29,13 +29,10 @@ public class Invoice:INotifyPropertyChanged
 
     public Invoice()
     {
-        InvoiceNumber = GenerateUniqueInvoiceNumber();
-        DateCreated = DateTime.Now;
-        ServiceType = string.Empty;
-        InvoiceItems = new FullObservableCollection<InvoiceItem>();
+        
 
         // Đăng ký sự kiện CollectionChanged để cập nhật tổng số lượng và tổng giá khi danh sách thay đổi
-        InvoiceItems.CollectionChanged += (s, e) => OnInvoiceItemsChanged(e);
+       // InvoiceItems.CollectionChanged += (s, e) => OnInvoiceItemsChanged(e);
     }
 
     public void OnInvoiceItemsChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -105,11 +102,11 @@ public class Invoice:INotifyPropertyChanged
         // Implementation for marking the invoice as paid
     }
 
-    // Tạo số hóa đơn duy nhất
-    private static string GenerateUniqueInvoiceNumber()
-    {
-        return Guid.NewGuid().ToString();
-    }
+    //// Tạo số hóa đơn duy nhất
+    //private static string GenerateUniqueInvoiceNumber()
+    //{
+    //    return Guid.NewGuid().ToString();
+    //}
     public virtual void OnPropertyChanged(string propertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

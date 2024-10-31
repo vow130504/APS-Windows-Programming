@@ -20,6 +20,10 @@ public class Product :INotifyPropertyChanged
     {
         get; set;
     }
+    public string Size
+    {
+        get; set;
+    }
     public event PropertyChangedEventHandler PropertyChanged;
 }
 

@@ -8,13 +8,53 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:model="using:DerinatManagement.Model"
     xmlns:vm="using:DerinatManagement.ViewModels"
+    xmlns:control="using:ABI.Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
     <UserControl.DataContext>
         <vm:CategoryViewModel />
     </UserControl.DataContext>
 
-    <Grid>
+    <StackPanel Grid.Column="0">
+        <Pivot ItemsSource="{x:Bind ViewModel.ListTypeBeverages, Mode=OneWay}" >
+            <Pivot.HeaderTemplate>
+                <DataTemplate x:DataType="model:TypeBeverage">
+                    <TextBlock Text="{x:Bind TypeName}" FontSize="20" />
+                </DataTemplate>
+            </Pivot.HeaderTemplate>
+            <Pivot.ItemTemplate>
+                <DataTemplate x:DataType="model:TypeBeverage">
+                    <PivotItem>
+                        <GridView Padding="20,60,20,0" ItemsSource="{x:Bind Products}" IsItemClickEnabled="True" ItemClick="GridView_ItemClick">
+                            <GridView.ItemTemplate>
+                                <DataTemplate x:DataType="model:Product">
+                                    <Grid>
+                                        <Grid.Shadow>
+                                            <ThemeShadow />
+                                        </Grid.Shadow>
+                                        <Border BorderBrush="{ThemeResource SystemControlForegroundBaseLowBrush}"
+                                                BorderThickness="1"
+                                                CornerRadius="5"
+                                                Padding="16"
+                                                Background="#ffff" MinWidth="157">
+                                            <StackPanel>
+                                                <Image Source="{x:Bind Image}" Height="100" Width="100" />
+                                                <TextBlock Text="{x:Bind Name}" FontWeight="Bold" Foreground="Black"/>
+                                                <TextBlock Text="{x:Bind Price}" Foreground="Black"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </Grid>
+                                </DataTemplate>
+                            </GridView.ItemTemplate>
+                        </GridView>
+                    </PivotItem>
+                </DataTemplate>
+            </Pivot.ItemTemplate>
+        </Pivot>
+    </StackPanel>
+</UserControl>
+
+<!--<Grid>
         <GridView Grid.Column="0" Padding="20,60,20,0" ItemsSource="{x:Bind ViewModel.Category.Products}" IsItemClickEnabled="True" ItemClick="GridView_ItemClick">
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="model:Product">
@@ -37,5 +77,4 @@
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>
-    </Grid>
-</UserControl>
+    </Grid>-->

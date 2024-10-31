@@ -8,6 +8,7 @@ using Microsoft.UI.Xaml;
 using Windows.Devices.Enumeration;
 using DerinatManagement.Views;
 using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Input;
 
 
 namespace DerinatManagement.Views;
@@ -66,4 +67,43 @@ public sealed partial class SalePage : Page
         PendingControl pendingControl = new PendingControl();
         ContentCenter.Children.Add(pendingControl);
     }
+    private void OnCategoryTapped(object sender, TappedRoutedEventArgs e)
+    {
+        if (sender is TextBlock textBlock)
+        {
+            // Lấy giá trị của thẻ Tag để xác định danh mục được chọn
+            string selectedCategory = textBlock.Tag.ToString();
+
+            // Gọi hàm truy vấn cơ sở dữ liệu với danh mục đã chọn
+            QueryDatabase(selectedCategory);
+        }
+    }
+
+    private void QueryDatabase(string category)
+    {
+        // Thực hiện truy vấn lên cơ sở dữ liệu với tham số là category
+        // Ví dụ: lấy các sản phẩm thuộc danh mục này
+        // Kết nối và truy vấn DB, xử lý logic hiển thị dữ liệu
+
+        // Gỉa sử ở đây bạn có hàm ExecuteQuery để gọi DB
+        //var result = ExecuteQuery($"SELECT * FROM Products WHERE Category = '{category}'");
+
+        // Hiển thị hoặc xử lý kết quả truy vấn
+        //DisplayResults(result);
+    }
+    private void Control2_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+    {
+        // Thêm logic xử lý sự kiện TextChanged ở đây
+    }
+
+    private void Control2_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+    {
+        // Thêm logic xử lý sự kiện QuerySubmitted ở đây
+    }
+
+    private void Control2_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+    {
+        // Thêm logic xử lý sự kiện SuggestionChosen ở đây
+    }
+
 }

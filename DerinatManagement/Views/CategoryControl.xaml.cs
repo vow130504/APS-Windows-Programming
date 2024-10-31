@@ -17,6 +17,7 @@ using DerinatManagement.Model;
 using DerinatManagement.Views;
 using PropertyChanged;
 using System.Diagnostics;
+using DerinatManagement.Services.DataAccess;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -31,6 +32,7 @@ public sealed partial class CategoryControl : UserControl
     public CategoryControl(SalePage salePage)
     {
         this.InitializeComponent();
+        
         ViewModel = new CategoryViewModel();
         _salePage = salePage;
     }
@@ -85,4 +87,5 @@ public sealed partial class CategoryControl : UserControl
             }
         }
     }
+
 }
