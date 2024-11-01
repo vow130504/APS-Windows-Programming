@@ -7,42 +7,49 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-
     <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#222222">
+        <!-- Hình ảnh đầu trang -->
         <Image Source="Assets/Header-Login-Page02.png" Stretch="Fill" Height="200" Margin="0,0,0,0"/>
 
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <!-- First row for logo, takes up required space -->
                 <RowDefinition Height="5*" />
-                <!-- Second row to occupy remaining space -->
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <!-- Logo in column 0 -->
+            <!-- Logo -->
             <Grid Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Image Source="Assets/logo.png" Width="300" Height="300"/>
             </Grid>
 
-            <!-- Another logo in column 1 -->
-            <Grid Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <StackPanel HorizontalAlignment="Center" Orientation="Vertical" VerticalAlignment="Center" Padding="20" Spacing="10">
-                    <TextBlock Text="Log in" FontSize="25" FontWeight="Bold" Foreground="White" Margin="0,0,0,10" HorizontalAlignment="Center"/>
-                    <TextBox Foreground="Black" Header="User Name: "  Name="usernameTextBox" Width="250" Padding="10" FontSize="15" Margin="0,0,0,10"/>
-                    <PasswordBox Foreground="Black" Header="Password: " Name="passwordBox" Width="250" Padding="10" FontSize="15" Margin="0,0,0,10" />
-                    <CheckBox Name="rememberCheckBox" Foreground="White" Content="Remember me" FontSize="14"/>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="20" >
-                        <Button x:Name="loginButton" Content="Sign in" Width="110" FontSize="15" Padding="10" Background="RoyalBlue" Foreground="White" HorizontalAlignment="Center" Click="Login_Click"/>
-                        <Button x:Name="SigninButton" Content="Sign up" Width="110" FontSize="15" Padding="10" Background="RoyalBlue" Foreground="White" HorizontalAlignment="Center" Click="Signup_Click"/>
-                    </StackPanel>
+            <!-- Giao diện "Sign In" -->
+            <StackPanel x:Name="SignInPanel" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Orientation="Vertical" VerticalAlignment="Center" Padding="20" Spacing="10">
+                <TextBlock Text="Đăng nhập" FontSize="25" FontWeight="Bold" Foreground="White" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+                <TextBox Foreground="Black" Header="Tên người dùng:" Name="usernameTextBox" Width="250" Padding="10" FontSize="15" Margin="0,0,0,10"/>
+                <PasswordBox Foreground="Black" Header="Mật khẩu:" Name="passwordBox" Width="250" Padding="10" FontSize="15" Margin="0,0,0,10"/>
+                <CheckBox Name="rememberCheckBox" Foreground="White" Content="Ghi nhớ" FontSize="14"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="20">
+                    <Button x:Name="loginButton" Content="Đăng nhập" Width="110" FontSize="15" Padding="10" Background="RoyalBlue" Foreground="White" Click="Login_Click"/>
+                    <Button x:Name="switchToSignUpButton" Content="Đăng ký" Width="110" FontSize="15" Padding="10" Background="Gray" Foreground="White" Click="SwitchToSignUp"/>
                 </StackPanel>
+            </StackPanel>
 
-
-            </Grid>
+            <!-- Giao diện "Sign Up" -->
+            <StackPanel x:Name="SignUpPanel" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Orientation="Vertical" VerticalAlignment="Center" Padding="5" Spacing="5" Visibility="Collapsed">
+                <TextBlock Text="Đăng ký" FontSize="25" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center"/>
+                <TextBox Foreground="Black" Header="Tên người dùng:" Name="signupUsernameTextBox" Width="250" Padding="10" FontSize="15" Margin="0,0,0,10"/>
+                <PasswordBox Foreground="Black" Header="Mật khẩu:" Name="signupPasswordBox" Width="250" Padding="10" FontSize="15" Margin="0,0,0,10"/>
+                <PasswordBox Foreground="Black" Header="Nhập lại mật khẩu:" Name="confirmPasswordBox" Width="250" Padding="10" FontSize="15" Margin="0,0,0,10"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="20">
+                    <Button x:Name="signupButton" Content="Đăng ký" Width="110" FontSize="15" Padding="10" Background="RoyalBlue" Foreground="White" Click="Signup_Click"/>
+                    <Button x:Name="switchToSignInButton" Content="Quay lại" Width="110" FontSize="15" Padding="10" Background="Gray" Foreground="White" Click="SwitchToSignIn"/>
+                </StackPanel>
+            </StackPanel>
         </Grid>
     </StackPanel>
+
 </Window>

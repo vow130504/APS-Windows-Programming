@@ -31,7 +31,20 @@ namespace App
         public Login()
         {
             this.InitializeComponent();
-        } 
+        }
+
+        private void SwitchToSignUp(object sender, RoutedEventArgs e)
+        {
+            SignInPanel.Visibility = Visibility.Collapsed;
+            SignUpPanel.Visibility = Visibility.Visible;
+        }
+
+        private void SwitchToSignIn(object sender, RoutedEventArgs e)
+        {
+            SignInPanel.Visibility = Visibility.Visible;
+            SignUpPanel.Visibility = Visibility.Collapsed;
+        }
+
         private bool CheckLogin(string user, string password)
         {
             return user == "user123" && password == "password123";
