@@ -12,7 +12,7 @@ public class PendingControlViewModel
     public FullObservableCollection<Invoice> PendingInvoices { get; set; }
     public PendingControlViewModel()
     {
-        IDao dao = new MockDao();
+        IDao dao = ServiceFactory.GetChildOf(typeof(IDao)) as IDao;
         PendingInvoices = dao.GetPendingOrders();
     }
     public void CompleteOrder(Invoice order)

@@ -15,10 +15,11 @@ public class TypeBeverage: INotifyPropertyChanged
         get; set;
     }
     public FullObservableCollection<Product> Products { get; set; }
-    public TypeBeverage()
+    public TypeBeverage(string name)
     {
-        IDao dao= new MockDao();
-        Products= dao.GetCategory(TypeName).Products;
+        TypeName = name;
+        IDao dao= ServiceFactory.GetChildOf(typeof(IDao)) as IDao;
+        Products = dao.GetCategory(TypeName).Products;
     }
     public event PropertyChangedEventHandler PropertyChanged;
 }

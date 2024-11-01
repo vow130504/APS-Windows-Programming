@@ -1,9 +1,11 @@
-﻿using DerinatManagement.Activation;
+﻿using DemoListBinding1610;
+using DerinatManagement.Activation;
 using DerinatManagement.Contracts.Services;
 using DerinatManagement.Core.Contracts.Services;
 using DerinatManagement.Core.Services;
 using DerinatManagement.Helpers;
 using DerinatManagement.Services;
+using DerinatManagement.Services.DataAccess;
 using DerinatManagement.ViewModels;
 using DerinatManagement.Views;
 
@@ -88,7 +90,7 @@ public partial class App : Application
     protected async override void OnLaunched(LaunchActivatedEventArgs args)
     {
         base.OnLaunched(args);
-
+        ServiceFactory.Register(typeof(IDao), typeof(SqlServerDao));
         await App.GetService<IActivationService>().ActivateAsync(args);
     }
 }

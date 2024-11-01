@@ -51,25 +51,25 @@ public class MockDao : IDao
 
     public FullObservableCollection<TypeBeverage> GetListTypeBeverage()
     {
-        return new FullObservableCollection<TypeBeverage>
-        {
-             new TypeBeverage()
-                {
-                    TypeName="Coffee"
-                },
-             new TypeBeverage()
-                {
-                    TypeName="Tea"
-                },
-             new TypeBeverage()
-                    {
-                        TypeName="Juice"
-                    },
-             new TypeBeverage()
-             {
-                        TypeName="Smoothie"
-                    }
-        };
+        return new FullObservableCollection<TypeBeverage>();
+        //{
+        //     new TypeBeverage()
+        //        {
+        //            TypeName="Coffee"
+        //        },
+        //     new TypeBeverage()
+        //        {
+        //            TypeName="Tea"
+        //        },
+        //     new TypeBeverage()
+        //            {
+        //                TypeName="Juice"
+        //            },
+        //     new TypeBeverage()
+        //     {
+        //                TypeName="Smoothie"
+        //            }
+        //};
     }
 
     public FullObservableCollection<Invoice> GetPendingOrders()

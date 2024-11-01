@@ -12,7 +12,7 @@ public class Product :INotifyPropertyChanged
     {
         get; set;
     }
-    public decimal Price
+    public int Price
     {
         get; set;
     }
