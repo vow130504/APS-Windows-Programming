@@ -7,6 +7,7 @@ exports.up = function(knex) {
       table.string('SIZE', 1);
       table.integer('PRICE');
       table.integer('RECIPE_ID');
+      table.string('IMAGE_PATH');
     });
   };
   
