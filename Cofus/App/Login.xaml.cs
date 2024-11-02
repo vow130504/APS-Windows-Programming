@@ -47,7 +47,7 @@ namespace App
 
         private bool CheckLogin(string user, string password)
         {
-            return user == "user123" && password == "password123";
+            return user == "123" && password == "123";
         }
 
         private void Window_Activated(object sender, WindowActivatedEventArgs args)
@@ -103,7 +103,7 @@ namespace App
                     localSettings.Values["entropy"] = entropyInBase64;
                 }
 
-                var screen = new HomePage();
+                var screen = new InventoryManagement();
                 this.Content = screen; // Gán nội dung của cửa sổ hiện tại là trang mới
 
             }
