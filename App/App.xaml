@@ -14,12 +14,12 @@
                     <!-- Define theme colors -->
                     <!--<SolidColorBrush x:Key="TextControlBackgroundFocused" Color="White"/>-->
                     <SolidColorBrush x:Key="PrimaryColor" Color="#704232"/>
-                    <SolidColorBrush x:Key="SecondaryColor" Color="#0050EF"/>
-                    <!--<SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#0cb8f6"/>
-                    <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#4bc6f2"/>-->
+                    <SolidColorBrush x:Key="SecondaryColor" Color="#704232cf"/>
+                    <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#b26950"/>
+                    <!--<SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#4bc6f2"/>-->
                     <!--<SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="#CCCCCC"/>-->
-                    <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Black"/>
-                    <SolidColorBrush x:Key="ButtonForegroundPressed" Color="Black"/>
+                    <!--<SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Black"/>
+                    <SolidColorBrush x:Key="ButtonForegroundPressed" Color="Black"/>-->
                     <!--<SolidColorBrush x:Key="ButtonForegroundDisabled" Color="#666666"/>-->
                     <!--<SolidColorBrush x:Key="TabViewItemHeaderBackground" Color="White"/>-->
                     <!--<SolidColorBrush x:Key="TabViewItemHeaderForeground" Color="Black"/>

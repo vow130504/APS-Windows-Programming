@@ -17,9 +17,12 @@
             <ColumnDefinition Width="1.5*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
         <!-- Navigation Bar -->
-        <StackPanel Grid.Column="0" Orientation="Vertical">
+        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Vertical">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="50">
                 <Button Content="Phòng Bán" Background="{StaticResource PrimaryColor}" Margin="5" Click="PendingOrder_Click" Foreground="White"/>
                 <Button Content="Thực Đơn" Background="{StaticResource PrimaryColor}" Margin="5" Click="ViewCategory_Click" Foreground="White"/>
@@ -44,7 +47,10 @@
         
 
         <!-- TabView to manage multiple invoices -->
-        <controls:TabView x:Name="InvoiceTabView" Padding="0,10,0,0" Grid.Column="1" AddTabButtonClick="TabView_AddButtonClick" TabCloseRequested="TabView_TabCloseRequested" Loaded="TabView_Loaded" >
+        <controls:TabView x:Name="InvoiceTabView" Padding="0,10,0,0" Grid.Column="1"  Grid.Row="0"
+                          AddTabButtonClick="TabView_AddButtonClick" 
+                          TabCloseRequested="TabView_TabCloseRequested" 
+                          Loaded="TabView_Loaded" >
             
             <controls:TabView.TabItems >
                 

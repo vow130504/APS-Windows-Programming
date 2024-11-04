@@ -17,13 +17,37 @@
 
     <StackPanel Grid.Column="0">
         <Pivot ItemsSource="{x:Bind ViewModel.ListTypeBeverages, Mode=OneWay}" >
+            <PivotItem Header="All">
+                <GridView Padding="20,60,20,0" ItemsSource="{x:Bind ViewModel.GetAllBeverage()}" IsItemClickEnabled="True" ItemClick="GridView_ItemClick">
+                    <GridView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Product">
+                            <Grid>
+                                <Grid.Shadow>
+                                    <ThemeShadow />
+                                </Grid.Shadow>
+                                <Border BorderBrush="{ThemeResource SystemControlForegroundBaseLowBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="5"
+                                    Padding="16"
+                                    Background="#ffff" MinWidth="157">
+                                    <StackPanel>
+                                        <Image Source="{x:Bind Image}" Height="100" Width="100" />
+                                        <TextBlock Text="{x:Bind Name}" FontWeight="Bold" Foreground="Black"/>
+                                        <TextBlock Text="{x:Bind Price}" Foreground="Black"/>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
+            </PivotItem>
             <Pivot.HeaderTemplate>
-                <DataTemplate x:DataType="model:TypeBeverage">
-                    <TextBlock Text="{x:Bind TypeName}" FontSize="20" />
+                <DataTemplate x:DataType="model:Category">
+                    <TextBlock Text="{x:Bind Name}" FontSize="20" />
                 </DataTemplate>
             </Pivot.HeaderTemplate>
             <Pivot.ItemTemplate>
-                <DataTemplate x:DataType="model:TypeBeverage">
+                <DataTemplate x:DataType="model:Category">
                     <PivotItem>
                         <GridView Padding="20,60,20,0" ItemsSource="{x:Bind Products}" IsItemClickEnabled="True" ItemClick="GridView_ItemClick">
                             <GridView.ItemTemplate>

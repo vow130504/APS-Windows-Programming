@@ -4,18 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using App.Model;
-using App.Services.DataAccess;
 
 namespace App.ViewModels;
 public class CategoryViewModel
 {
-    public FullObservableCollection<TypeBeverage> ListTypeBeverages
+    public FullObservableCollection<Category> ListTypeBeverages
     {
         get; set;
     }
     public CategoryViewModel()
     {
-        IDao dao = ServiceFactory.GetChildOf(typeof(IDao)) as IDao;
+        IDao dao = App.GetService<IDao>();//ServiceFactory.GetChildOf(typeof(IDao)) as IDao
         ListTypeBeverages = dao.GetListTypeBeverage();
+    }
+    public FullObservableCollection<Product> GetAllBeverage()
+    {
+        return App.GetService<IDao>().GetAllBeverage();
     }
 }

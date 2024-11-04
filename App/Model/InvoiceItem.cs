@@ -7,6 +7,10 @@ namespace App.Model;
 public class InvoiceItem : INotifyPropertyChanged
 {
     private int _quantity;
+    public int BeverageId
+    {
+        get; set;
+    }
 
     public string Name
     {

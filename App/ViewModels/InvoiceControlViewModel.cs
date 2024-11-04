@@ -11,6 +11,7 @@ public class InvoiceControlViewModel : INotifyPropertyChanged
 {
     private DispatcherTimer _timer;
     private DateTime _currentDateTime;
+    private bool _isPaid;
 
     public event PropertyChangedEventHandler PropertyChanged;
 
@@ -29,11 +30,20 @@ public class InvoiceControlViewModel : INotifyPropertyChanged
 
     public int TotalQuantity => Invoice.TotalQuantity;
     public decimal TotalPrice => Invoice.TotalPrice;
-
+    public bool IsPaid
+    {
+        get => _isPaid;
+        set
+        {
+            _isPaid = value;
+            OnPropertyChanged(nameof(IsPaid));
+        }
+    }
     public InvoiceControlViewModel()
     {
         Invoice = new Invoice();
         _currentDateTime = DateTime.Now;
+        _isPaid = false;
 
         // Thiết lập timer để cập nhật thời gian mỗi giây
         _timer = new DispatcherTimer
@@ -42,7 +52,6 @@ public class InvoiceControlViewModel : INotifyPropertyChanged
         };
         _timer.Tick += Timer_Tick;
         _timer.Start();
-
         // Subscribe to PropertyChanged event of Invoice to update totals
         Invoice.PropertyChanged += Invoice_PropertyChanged;
     }
@@ -80,6 +89,31 @@ public class InvoiceControlViewModel : INotifyPropertyChanged
         {
             OnPropertyChanged(nameof(TotalQuantity));
             OnPropertyChanged(nameof(TotalPrice));
+        }
+    }
+    public async Task<bool> Checkout()
+    {
+        var dao = App.GetService<IDao>();
+
+        try
+        {
+            int orderId = await dao.CreateOrder(Invoice);
+
+            foreach (var item in Invoice.InvoiceItems)
+            {
+                await dao.AddOrderDetail(orderId, item);
+            }
+            //Dừng tăng thời gian
+            _timer.Stop();
+            CurrentDateTime = Invoice.CreatedTime;
+            IsPaid = true;
+            return true;
+        }
+        catch (Exception ex)
+        {
+            // Handle exceptions (e.g., log error)
+            Console.WriteLine($"Checkout failed: {ex.Message}");
+            return false;
         }
     }
 }

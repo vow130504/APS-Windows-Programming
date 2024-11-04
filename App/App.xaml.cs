@@ -5,7 +5,6 @@ using App.Core.Contracts.Services;
 using App.Core.Services;
 using App.Helpers;
 using App.Services;
-using App.Services.DataAccess;
 using App.ViewModels;
 using App.Views;
 
@@ -63,6 +62,7 @@ public partial class App : Application
             services.AddSingleton<IActivationService, ActivationService>();
             services.AddSingleton<IPageService, PageService>();
             services.AddSingleton<INavigationService, NavigationService>();
+            services.AddSingleton<IDao, MockDao>();
 
             // Core Services
             services.AddSingleton<ISampleDataService, SampleDataService>();
@@ -92,7 +92,6 @@ public partial class App : Application
     protected async override void OnLaunched(LaunchActivatedEventArgs args)
     {
         base.OnLaunched(args);
-        ServiceFactory.Register(typeof(IDao), typeof(SqlServerDao));
         await App.GetService<IActivationService>().ActivateAsync(args);
     }
 }

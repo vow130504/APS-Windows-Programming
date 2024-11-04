@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using App.Model;
-using App.Services.DataAccess;
+using Microsoft.UI.Xaml.Automation.Provider;
 
 namespace App.ViewModels;
 public class PendingControlViewModel
@@ -12,11 +12,14 @@ public class PendingControlViewModel
     public FullObservableCollection<Invoice> PendingInvoices { get; set; }
     public PendingControlViewModel()
     {
-        IDao dao = ServiceFactory.GetChildOf(typeof(IDao)) as IDao;
+        IDao dao = App.GetService<IDao>();
         PendingInvoices = dao.GetPendingOrders();
     }
     public void CompleteOrder(Invoice order)
     {
         PendingInvoices.Remove(order);
+        order.CompleteTime = DateTime.Now;
+        App.GetService<IDao>().CompletePendingOrder(order);
+
     }
 }

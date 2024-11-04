@@ -6,7 +6,7 @@ using App;
 
 namespace DemoListBinding1610;
 
-public class SqlServerDao : IDao
+public class SqlServerDao
 {
     private readonly string _connectionString = """
             Host=localhost;
@@ -18,11 +18,9 @@ public class SqlServerDao : IDao
     // Lấy thông tin Category theo loại
     public Category GetCategory(string category)
     {
-        
-        var categoryResult = new Category
-        {
-            Products = new FullObservableCollection<Product>()
-        };
+
+        var categoryResult = new Category(category, new FullObservableCollection<Product>());
+       
 
         using var connection = new NpgsqlConnection(_connectionString);
         connection.Open();
@@ -42,6 +40,7 @@ public class SqlServerDao : IDao
             // Thêm từng sản phẩm vào danh sách Products
             var product = new Product
             {
+                Id = (int)reader["BeverageID"],
                 Name = (string)reader["BEVERAGE_NAME"],
                 Price = (int)reader["PRICE"],
                 Size = (string)reader["SIZE"],
@@ -51,16 +50,17 @@ public class SqlServerDao : IDao
         }
         int count = categoryResult.Products.Count;
 
-        return count > 0 ? categoryResult : new Category { Products = new FullObservableCollection<Product>()
-        {
-            new Product { Name = "Không có sản phẩm nào", Price = 0, Size = "M", Image="Assets/soup_paris.jpg"}
-        } };
+        return count > 0 ? categoryResult : new Category ( "Không có sản phẩm nào", new FullObservableCollection<Product>()
+            {
+                new Product { Name = "Không có sản phẩm nào", Price = 0, Size = "M", Image="Assets/soup_paris.jpg"}
+            } 
+        );
     }
 
     // Lấy danh sách loại thức uống
-    public FullObservableCollection<TypeBeverage> GetListTypeBeverage()
+    public FullObservableCollection<Category> GetListTypeBeverage()
     {
-        var result = new FullObservableCollection<TypeBeverage>();
+        var result = new FullObservableCollection<Category>();
         using var connection = new NpgsqlConnection(_connectionString);
         connection.Open();
         var sql = "SELECT * FROM \"TYPE_BEVERAGE\"";
@@ -70,7 +70,8 @@ public class SqlServerDao : IDao
         while (reader.Read())
         {
             var name = (string)reader["CATEGORY"];
-            var typeBeverage = new TypeBeverage(name);
+            // ServiceFactory.GetChildOf(typeof(IDao)) as IDao
+            var typeBeverage = new Category(name, GetCategory(name).Products);
             result.Add(typeBeverage);
         }
 
@@ -83,7 +84,7 @@ public class SqlServerDao : IDao
         var result = new FullObservableCollection<Invoice>();
         using var connection = new NpgsqlConnection(_connectionString);
         connection.Open();
-        var sql = "SELECT * FROM ORDERS WHERE COMPLETED_TIME IS NULL";
+        var sql = "SELECT * FROM \"ORDERS\" WHERE \"COMPLETED_TIME\" IS NULL";
         using var command = new NpgsqlCommand(sql, connection);
         var reader = command.ExecuteReader();
 
@@ -99,5 +100,53 @@ public class SqlServerDao : IDao
         }
 
         return result;
+    }
+    public async Task<int> CreateOrder(Invoice invoice)
+    {
+        try
+        {
+            using var connection = new NpgsqlConnection(_connectionString);
+            await connection.OpenAsync();
+
+            int orderId;
+            var sql = @"
+                INSERT INTO ""ORDERS"" (""CUSTOMER_ID"", ""ORDER_TIME"", ""PAYMENT_METHOD_ID"", ""TOTAL_AMOUNT"") 
+                VALUES (@customerId, @orderTime, @payMethod, @totalAmount) 
+                RETURNING ""ORDER_ID"";";
+
+            using (var cmd = new NpgsqlCommand(sql, connection))
+            {
+                cmd.Parameters.AddWithValue("@customerId", 1); // invoice.CustomerId
+                cmd.Parameters.AddWithValue("@orderTime", DateTime.Now);
+                cmd.Parameters.AddWithValue("@totalAmount", invoice.TotalPrice);
+                cmd.Parameters.AddWithValue("@payMethod", 1); // invoice.PaymentMethodId   
+
+                orderId = (int)await cmd.ExecuteScalarAsync();
+            }
+
+            return orderId;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred while creating the order: {ex.Message}");
+            throw;
+        }
+    }
+
+    public async Task AddOrderDetail(int orderId, InvoiceItem item)
+    {
+        using var connection = new NpgsqlConnection(_connectionString);
+        await connection.OpenAsync();
+
+        using (var cmd = new NpgsqlCommand(@"INSERT INTO ""ORDER_DETAILS"" (""ORDER_ID"", ""BEVERAGE_ID"", ""QUANTITY"", ""PRICE"", ""SUBTOTAL"") VALUES (@orderId, @beverageId, @quantity, @price, @subtotal);", connection))
+        {
+            cmd.Parameters.AddWithValue("orderId", orderId);
+            cmd.Parameters.AddWithValue("beverageId", item.BeverageId);
+            cmd.Parameters.AddWithValue("quantity", item.Quantity);
+            cmd.Parameters.AddWithValue("price", item.Price);
+            cmd.Parameters.AddWithValue("subtotal", item.Total);
+
+            await cmd.ExecuteNonQueryAsync();
+        }
     }
 }

@@ -27,7 +27,7 @@ public sealed partial class SalePage : Page
 
     public void TabView_Loaded(object sender, RoutedEventArgs e)
     {
-        (sender as TabView).TabItems.Add(CreateNewTab(1));
+        (sender as TabView).TabItems.Add(CreateNewTab((sender as TabView).TabItems.Count));
     }
 
     public void TabView_AddButtonClick(TabView sender, object args)

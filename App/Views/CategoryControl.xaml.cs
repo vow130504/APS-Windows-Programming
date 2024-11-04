@@ -17,7 +17,6 @@ using App.Model;
 using App.Views;
 using PropertyChanged;
 using System.Diagnostics;
-using App.Services.DataAccess;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -53,6 +52,7 @@ public sealed partial class CategoryControl : UserControl
                     var note = dialog.Notes;
                     var invoiceItem = new InvoiceItem
                     {
+                        BeverageId = product.Id,
                         Name = product.Name,
                         Price = product.Price,
                         Quantity = quantity,

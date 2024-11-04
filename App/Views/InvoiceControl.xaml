@@ -4,87 +4,112 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:App.Views"
     xmlns:model="using:App.Model"
-    xmlns:vm="using:App.ViewModels">
+    xmlns:vm="using:App.ViewModels"
+    xmlns:conv="using:App.Converters">
 
     <UserControl.DataContext>
         <vm:InvoiceControlViewModel />
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <conv:BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <conv:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
+        <conv:IntToVnCurrencyConverter x:Key="IntToVnCurrencyConverter"/>
+    </UserControl.Resources>
+    <Grid Background="White" VerticalAlignment="Bottom">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel x:Name="InvoicePanel" Margin="3,0,3,3" Background="White" Grid.Row="0">
+            <!-- Ngày và Giờ hệ thống cập nhật liên tục -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10"  Padding="10">
+                <TextBlock Text="Ngày tạo: " VerticalAlignment="Center" Margin="0,0,5,0" Foreground="Black"/>
+                <TextBlock Text="{x:Bind ViewModel.CurrentDate, Mode=OneWay}" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="Black"/>
+                <TextBlock Text="Giờ: " VerticalAlignment="Center" Margin="20,0,5,0" Foreground="Black"/>
+                <TextBlock Text="{x:Bind ViewModel.CurrentTime, Mode=OneWay}" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="Black"/>
+                <!--<TextBlock Text="Chọn bàn: " VerticalAlignment="Center" Margin="20,0,5,0" Foreground="Black"/>
+                <ComboBox Width="150" SelectedValue="{x:Bind ViewModel.Invoice.TableNumber, Mode=TwoWay}" SelectedValuePath="Content" Background="White">
+                    <ComboBoxItem Content="1"/>
+                    <ComboBoxItem Content="2"/>
+                    <ComboBoxItem Content="3"/>
+                    <ComboBoxItem Content="4"/>
+                </ComboBox>-->
+            </StackPanel>
 
-    <StackPanel x:Name="InvoicePanel" Margin="3,0,3,3" Background="White">
-        <!-- Ngày và Giờ hệ thống cập nhật liên tục -->
-        <StackPanel Orientation="Horizontal" Margin="0,0,0,10"  Padding="10">
-            <TextBlock Text="Ngày tạo: " VerticalAlignment="Center" Margin="0,0,5,0" Foreground="Black"/>
-            <TextBlock Text="{x:Bind ViewModel.CurrentDate, Mode=OneWay}" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="Black"/>
-            <TextBlock Text="Giờ: " VerticalAlignment="Center" Margin="20,0,5,0" Foreground="Black"/>
-            <TextBlock Text="{x:Bind ViewModel.CurrentTime, Mode=OneWay}" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="Black"/>
-            <TextBlock Text="Dịch vụ: " VerticalAlignment="Center" Margin="20,0,5,0" Foreground="Black"/>
-            <!--<ComboBox Width="150" SelectedItem="{x:Bind ViewModel.Invoice.ServiceType, Mode=TwoWay}" Background="White">
-                <ComboBoxItem Content="Coffee Shop"/>
-                --><!-- Thêm các mục dịch vụ khác nếu cần thiết --><!--
-            </ComboBox>-->
+            <!-- Headers for the columns -->
+            <Grid Margin="15" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="8*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Product Name" FontWeight="Bold" Grid.Column="0" Margin="2,0,2,0" Foreground="Black"/>
+                <TextBlock Text="Quantity" FontWeight="Bold" Grid.Column="1" Margin="2,0,2,0" Foreground="Black" TextAlignment="Center"/>
+                <TextBlock Text="Unit Price" FontWeight="Bold" Grid.Column="2" Margin="2,0,2,0" Foreground="Black" TextAlignment="Center"/>
+                <TextBlock Text="Total" FontWeight="Bold" Grid.Column="3" Margin="2,0,2,0" Foreground="Black" TextAlignment="Center"/>
+            </Grid>
+            <Border Height="1" Background="#cbaa8e" HorizontalAlignment="Stretch" Margin="0,10,0,10"/>
+
+
+            <!-- Scrollable container for invoice items -->
+            <ScrollViewer >
+                <ListView ItemsSource="{x:Bind ViewModel.GetInvoiceItems()}" Height="600">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="model:InvoiceItem">
+                            <StackPanel Padding="5,0,0,0">
+                                <Grid Margin="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20*"/>
+                                        <ColumnDefinition Width="10*"/>
+                                        <ColumnDefinition Width="10*"/>
+                                        <ColumnDefinition Width="10*"/>
+                                        <ColumnDefinition Width="8*"/>
+                                        <!-- Cột cho nút xóa -->
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock Text="{x:Bind Name}" TextWrapping="Wrap" Foreground="Black"/>
+                                        <TextBlock Text="{x:Bind Note, Mode=TwoWay}" Width="200" Height="20" FontSize="12" Margin="0,5,0,0" Foreground="Black" Opacity="0.5"/>
+                                    </StackPanel>
+                                    <TextBox Text="{x:Bind Quantity, Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1" Foreground="Black" Style="{StaticResource TextBox}"/>
+                                    <TextBlock Text="{x:Bind Price, Mode=OneWay}" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1" Foreground="Black"/>
+                                    <TextBlock Text="{x:Bind Total, Mode=OneWay}" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1" Foreground="Black"/>
+                                    <!-- Nút xóa mục -->
+                                    <Button Grid.Column="4" Margin="2" Foreground="Red" Background="Transparent" Click="DeleteButton_Click">
+                                        <FontIcon Glyph="&#xE74D;" FontSize="12"/>
+                                    </Button>
+                                </Grid>
+                                <Border Height="1" Background="#cbaa8e" HorizontalAlignment="Stretch" Margin="0,10,0,10" Opacity="0.5" Padding="10"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollViewer>
+            
         </StackPanel>
-        
-        <!-- Headers for the columns -->
-        <Grid Margin="15" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="50"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Text="Product Name" FontWeight="Bold" Grid.Column="0" Margin="2,0,2,0" Foreground="Black"/>
-            <TextBlock Text="Quantity" FontWeight="Bold" Grid.Column="1" Margin="2,0,2,0" Foreground="Black"/>
-            <TextBlock Text="Unit Price" FontWeight="Bold" Grid.Column="2" Margin="2,0,2,0" Foreground="Black"/>
-            <TextBlock Text="Total" FontWeight="Bold" Grid.Column="3" Margin="2,0,2,0" Foreground="Black"/>
-        </Grid>
-        <Border Height="1" Background="#cbaa8e" HorizontalAlignment="Stretch" Margin="0,10,0,10"/>
+        <StackPanel Grid.Row="1" VerticalAlignment="Bottom" Margin="5">
+            <!-- Thông tin tổng cộng -->
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Tổng hàng: " FontWeight="Bold" Margin="0,0,5,0" Foreground="{ThemeResource SystemControlForegroundAccentBrush}"/>
+                <TextBlock Text="{x:Bind ViewModel.TotalQuantity, Mode=OneWay}" FontWeight="Bold" Foreground="Black"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Tổng tiền: " FontWeight="Bold"  Margin="0,0,5,0" Foreground="{ThemeResource SystemControlForegroundAccentBrush}"/>
+                <TextBlock Text="{x:Bind ViewModel.TotalPrice, Mode=OneWay}" FontWeight="Bold" Foreground="Black"/>
+            </StackPanel>
+            <TextBlock
+                    Visibility="{x:Bind ViewModel.IsPaid, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"
+                    Text="Đã thanh toán" 
+                    FontWeight="Bold" 
+                    Foreground="Green"/>
 
+            <!-- Nút yêu cầu thanh toán -->
+            <Button Visibility="{x:Bind ViewModel.IsPaid,Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
+                 Content="Yêu cầu thanh toán" HorizontalAlignment="Right" Click="CheckoutButton_Click" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
 
-        <!-- Scrollable container for invoice items -->
-        <ScrollViewer Height="500">
-            <ItemsControl ItemsSource="{x:Bind ViewModel.GetInvoiceItems()}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate x:DataType="model:InvoiceItem">
-                        <StackPanel Padding="5,0,0,0">
-                            <Grid Margin="1">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="20*"/>
-                                    <ColumnDefinition Width="10*"/>
-                                    <ColumnDefinition Width="10*"/>
-                                    <ColumnDefinition Width="10*"/>
-                                    <ColumnDefinition Width="8*"/>
-                                    <!-- Cột cho nút xóa -->
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Grid.Column="0" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <TextBlock Text="{x:Bind Name}" TextWrapping="Wrap" Foreground="Black"/>
-                                    <TextBlock Text="{x:Bind Note, Mode=TwoWay}" Width="200" Height="20" FontSize="12" Margin="0,5,0,0" Foreground="Black" Opacity="0.5"/>
-                                </StackPanel>
-                                <TextBox Text="{x:Bind Quantity, Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1" Foreground="Black" Style="{StaticResource TextBox}"/>
-                                <TextBlock Text="{x:Bind Price, Mode=OneWay}" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1" Foreground="Black"/>
-                                <TextBlock Text="{x:Bind Total, Mode=OneWay}" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1" Foreground="Black"/>
-                                <!-- Nút xóa mục -->
-                                <Button Grid.Column="4" Margin="2" Foreground="Red" Background="Transparent" Click="DeleteButton_Click">
-                                    <FontIcon Glyph="&#xE74D;" FontSize="12"/>
-                                </Button>
-                            </Grid>
-                            <Border Height="1" Background="#cbaa8e" HorizontalAlignment="Stretch" Margin="0,10,0,10" Opacity="0.5" Padding="10"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
-
-        <!-- Thông tin tổng cộng -->
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="Tổng hàng: " FontWeight="Bold" Margin="0,0,5,0" Foreground="{ThemeResource SystemControlForegroundAccentBrush}"/>
-            <TextBlock Text="{x:Bind ViewModel.TotalQuantity, Mode=OneWay}" FontWeight="Bold" Foreground="Black"/>
         </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="Tổng tiền: " FontWeight="Bold"  Margin="0,0,5,0" Foreground="{ThemeResource SystemControlForegroundAccentBrush}"/>
-            <TextBlock Text="{x:Bind ViewModel.TotalPrice, Mode=OneWay}" FontWeight="Bold" Foreground="Black"/>
-        </StackPanel>
-        <!-- Nút yêu cầu thanh toán -->
-        <Button Content="Yêu cầu thanh toán" HorizontalAlignment="Right" Click="CheckoutButton_Click" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
-    </StackPanel>
+    </Grid>
+    
 </UserControl>

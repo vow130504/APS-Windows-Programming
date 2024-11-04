@@ -13,7 +13,17 @@ public class Invoice : INotifyPropertyChanged
 
     public int InvoiceNumber { get; set; }
     public DateTime CreatedTime { get; set; }
+
+    public DateTime CompleteTime
+    {
+        get; set;
+    }
     public int TableNumber { get; set; }
+    public string PaymentMethod
+    {
+        get; set;
+    }
+
     public FullObservableCollection<InvoiceItem> InvoiceItems { get; set; }
 
     public Invoice()

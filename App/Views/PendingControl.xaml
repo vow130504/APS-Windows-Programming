@@ -8,7 +8,11 @@
     xmlns:model="using:App.Model"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:App.Converters"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <converters:DateTimeConverter x:Key="DateTimeConverter"/>
+    </UserControl.Resources>
     <Grid Padding="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -21,13 +25,84 @@
                    Margin="0,0,0,20"
                    Foreground="{StaticResource PrimaryColor}"/>
 
-        <ListView x:Name="PendingOrdersListView"
-                  Grid.Row="1"
-                  ItemsSource="{x:Bind ViewModel.PendingInvoices, Mode=OneWay}"
-                  SelectionMode="None">
+        <ListView Grid.Row="1" x:Name="PendingOrdersListView"
+                      ItemsSource="{x:Bind ViewModel.PendingInvoices, Mode=OneWay}"
+                      SelectionMode="None"
+                      Background="Transparent"
+                      Padding="10"
+                      Height="700"
+                      BorderThickness="0"
+                      ItemContainerStyle="{StaticResource DefaultListViewItemStyle}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="model:Invoice">
-                    <Grid Padding="10" Margin="0,0,0,10" Background="White" CornerRadius="8">
+                    <Border Background="White"
+                                CornerRadius="10"
+                                Padding="15"
+                                Margin="0,0,0,15">
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Thông tin đơn hàng -->
+                            <StackPanel>
+                                <TextBlock Text="Mã đơn hàng"
+                                               FontSize="14"
+                                               Foreground="Gray"/>
+                                <TextBlock Text="{x:Bind InvoiceNumber}"
+                                               FontSize="20"
+                                               FontWeight="SemiBold"
+                                               Foreground="{StaticResource TextBoxForegroundThemeBrush}"/>
+
+                                <!--<TextBlock Text="Số bàn"
+                                               FontSize="14"
+                                               Foreground="Gray"
+                                               Margin="0,5,0,0"/>
+                                <TextBlock Text="{x:Bind TableNumber}"
+                                               FontSize="20"
+                                               FontWeight="SemiBold"
+                                               Foreground="{StaticResource TextBoxForegroundThemeBrush}"/>-->
+
+                                <TextBlock Text="Thời gian tạo"
+                                               FontSize="14"
+                                               Foreground="Gray"
+                                               Margin="0,5,0,0"/>
+                                <TextBlock Text="{x:Bind CreatedTime, Converter={StaticResource DateTimeConverter}}"
+                                               FontSize="16"
+                                               FontWeight="Medium"
+                                               Foreground="{StaticResource TextBoxForegroundThemeBrush}"/>
+
+                                <TextBlock Text="Phương thức thanh toán"
+                                               FontSize="14"
+                                               Foreground="Gray"
+                                               Margin="0,5,0,0"/>
+                                <TextBlock Text="{x:Bind PaymentMethod}"
+                                               FontSize="16"
+                                               Foreground="{StaticResource TextBoxForegroundThemeBrush}"/>
+                            </StackPanel>
+
+                            <!-- Nút hoàn tất -->
+                            <Button Content="Hoàn tất"
+                                        Grid.Column="1"
+                                        Width="100"
+                                        Height="40"
+                                        Background="{StaticResource PrimaryColor}"
+                                        Foreground="White"
+                                        CornerRadius="20"
+                                        FontWeight="Bold"
+                                        VerticalAlignment="Center"
+                                        Click="CompleteOrderButton_Click"
+                                        Style="{StaticResource ButtonRevealStyle}"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</UserControl>
+<!--<Grid Padding="10" Margin="0,0,0,10" Background="White" CornerRadius="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
@@ -35,15 +110,10 @@
                         <StackPanel>
                             <TextBlock Text="{x:Bind InvoiceNumber}" FontSize="18" FontWeight="SemiBold"/>
                             <TextBlock Text="{x:Bind TableNumber}" FontSize="18" FontWeight="SemiBold"/>
-                            <!--<TextBlock Text="Quantity: {x:Bind Quantity}" FontSize="14" Foreground="Gray"/>-->
+                            --><!--<TextBlock Text="Quantity: {x:Bind Quantity}" FontSize="14" Foreground="Gray"/>--><!--
                         </StackPanel>
                         <Button Content="Complete"
                                 Grid.Column="1"
                                 VerticalAlignment="Center"
                                 Click="CompleteOrderButton_Click"/>
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </Grid>
-</UserControl>
+                    </Grid>-->

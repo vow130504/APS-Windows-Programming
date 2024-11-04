@@ -8,6 +8,11 @@ using System.Threading.Tasks;
 namespace App.Model;
 public class Product :INotifyPropertyChanged
 {
+    public int Id { get; set; }
+    public int TypeBeverageId
+    {
+        get; set;
+    }
     public string Name
     {
         get; set;
