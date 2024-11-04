@@ -1,0 +1,15 @@
+App.xbf
+MainWindow.xbf
+Styles\FontSizes.xbf
+Styles\TextBlock.xbf
+Styles\Thickness.xbf
+Views\BlankPage.xbf
+Views\ContentGridDetailPage.xbf
+Views\ContentGridPage.xbf
+Views\DataGridPage.xbf
+Views\ListDetailsDetailControl.xbf
+Views\ListDetailsPage.xbf
+Views\MainPage.xbf
+Views\Revenue.xbf
+Views\ShellPage.xbf
+Views\WebViewPage.xbf
