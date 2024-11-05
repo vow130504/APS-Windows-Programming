@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-	<Grid Background="#e3e4e9" Padding="15" Margin="0" Height="600">
+	<Grid Background="#e3e4e9" Padding="15" Margin="0">
 		<StackPanel Background="White" Orientation="Vertical" VerticalAlignment="Top" Padding="10" Margin="0,0,0,0">
 			<TextBlock Text="Tổng quan"
                 FontSize="20"
@@ -36,7 +36,7 @@
 					</Border.Background>
 					<StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Padding="10,10,10,10">
 						<TextBlock Text="Doanh thu hôm nay" FontSize="18" Foreground="White" HorizontalAlignment="Left" />
-						<TextBlock Text="{Binding TotalRevenue}" Margin="0,20,0,0" FontSize="21" Foreground="White" HorizontalAlignment="Left" />
+                        <TextBlock Text="{Binding TotalRevenueFormatted}" Margin="0,30,0,0" FontSize="25" FontWeight="Bold" Foreground="White" HorizontalAlignment="Left" />
 					</StackPanel>
 				</Border>
 
@@ -50,7 +50,7 @@
 					</Border.Background>
 					<StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Padding="10,10,10,10">
 						<TextBlock Text="Số đơn nước" FontSize="18" Foreground="White" HorizontalAlignment="Left" />
-						<TextBlock Text="{Binding OrderCount}" Margin="0,20,0,0" FontSize="21" Foreground="White" HorizontalAlignment="Left" />
+                        <TextBlock Text="{Binding OrderCount}" Margin="0,30,0,0" FontSize="25" FontWeight="Bold" Foreground="White" HorizontalAlignment="Left" />
 					</StackPanel>
 				</Border>
 
@@ -64,7 +64,7 @@
 					</Border.Background>
 					<StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Padding="10,10,10,10">
 						<TextBlock Text="Tiền mặt" FontSize="18" Foreground="White" HorizontalAlignment="Left" />
-						<TextBlock Text="{Binding CashAmount}" Margin="0,20,0,0" FontSize="21" Foreground="White" HorizontalAlignment="Left" />
+                        <TextBlock Text="{Binding CashAmountFormatted}" Margin="0,30,0,0" FontSize="25" FontWeight="Bold" Foreground="White" HorizontalAlignment="Left" />
 					</StackPanel>
 				</Border>
 
@@ -78,7 +78,7 @@
 					</Border.Background>
 					<StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Padding="10,10,10,10">
 						<TextBlock Text="Chuyển khoản" FontSize="18" Foreground="White" HorizontalAlignment="Left" />
-						<TextBlock Text="{Binding TransferAmount}" Margin="0,20,0,0" FontSize="21" Foreground="White" HorizontalAlignment="Left" />
+						<TextBlock Text="{Binding TransferAmountFormatted}" Margin="0,30,0,0" FontSize="25" FontWeight="Bold" Foreground="White" HorizontalAlignment="Left" />
 					</StackPanel>
 				</Border>
 			</Grid>
@@ -114,7 +114,7 @@
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
 							<TextBlock x:Name="topProduct1" Grid.Column="0" Grid.Row="0" FontSize="16" Foreground="Black" />
-							<TextBlock x:Name="productRevenue1" Grid.Column="1" Grid.Row="0" FontSize="16" Foreground="Black" HorizontalAlignment="Right" />
+							<TextBlock x:Name="productRevenue1" Foreground="Green" FontWeight="Bold" Grid.Column="1" Grid.Row="0" FontSize="16" HorizontalAlignment="Right" />
 						</Grid>
 					</Border>
 
@@ -130,7 +130,7 @@
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
 							<TextBlock x:Name="topProduct2" Grid.Column="0" Grid.Row="0" FontSize="16" Foreground="Black" />
-							<TextBlock x:Name="productRevenue2" Grid.Column="1" Grid.Row="0" FontSize="16" Foreground="Black" HorizontalAlignment="Right" />
+                            <TextBlock x:Name="productRevenue2" Grid.Column="1" Grid.Row="0" FontSize="16" Foreground="Green" FontWeight="Bold" HorizontalAlignment="Right" />
 						</Grid>
 					</Border>
 
@@ -146,7 +146,7 @@
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
 							<TextBlock x:Name="topProduct3" Grid.Column="0" Grid.Row="0" FontSize="16" Foreground="Black" />
-							<TextBlock x:Name="productRevenue3" Grid.Column="1" Grid.Row="0" FontSize="16" Foreground="Black" HorizontalAlignment="Right" />
+                            <TextBlock x:Name="productRevenue3" Grid.Column="1" Grid.Row="0" FontSize="16" Foreground="Green" FontWeight="Bold" HorizontalAlignment="Right" />
 						</Grid>
 					</Border>
 
@@ -162,7 +162,7 @@
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
 							<TextBlock x:Name="topProduct4" Grid.Column="0" Grid.Row="0" FontSize="16" Foreground="Black" />
-							<TextBlock x:Name="productRevenue4" Grid.Column="1" Grid.Row="0" FontSize="16" Foreground="Black" HorizontalAlignment="Right" />
+                            <TextBlock x:Name="productRevenue4" Grid.Column="1" Grid.Row="0" FontSize="16" Foreground="Green" FontWeight="Bold" HorizontalAlignment="Right" />
 						</Grid>
 					</Border>
 
@@ -178,7 +178,7 @@
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
 							<TextBlock x:Name="topProduct5" Grid.Column="0" Grid.Row="0" FontSize="16" Foreground="Black" />
-							<TextBlock x:Name="productRevenue5" Grid.Column="1" Grid.Row="0" FontSize="16" Foreground="Black" HorizontalAlignment="Right" />
+                            <TextBlock x:Name="productRevenue5" Grid.Column="1" Grid.Row="0" FontSize="16" Foreground="Green" FontWeight="Bold" HorizontalAlignment="Right" />
 						</Grid>
 					</Border>
 				</StackPanel>
@@ -200,7 +200,7 @@
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
 							<TextBlock x:Name="topBeverage1" Grid.Column="0" FontSize="16" Foreground="Black" />
-							<TextBlock x:Name="beverageRevenue1" Grid.Column="1" FontSize="16" Foreground="Black" HorizontalAlignment="Right" />
+                            <TextBlock x:Name="beverageRevenue1" Grid.Column="1" FontSize="16" Foreground="Green" FontWeight="Bold" HorizontalAlignment="Right" />
 						</Grid>
 					</Border>
 					<Border Margin="5" Height="50">
@@ -214,7 +214,7 @@
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
 							<TextBlock x:Name="topBeverage2" Grid.Column="0" FontSize="16" Foreground="Black" />
-							<TextBlock x:Name="beverageRevenue2" Grid.Column="1" FontSize="16" Foreground="Black" HorizontalAlignment="Right" />
+                            <TextBlock x:Name="beverageRevenue2" Grid.Column="1" FontSize="16" Foreground="Green" FontWeight="Bold" HorizontalAlignment="Right" />
 
 						</Grid>
 					</Border>
@@ -229,7 +229,7 @@
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
 							<TextBlock x:Name="topBeverage3" Grid.Column="0" FontSize="16" Foreground="Black" />
-							<TextBlock x:Name="beverageRevenue3" Grid.Column="1" FontSize="16" Foreground="Black" HorizontalAlignment="Right" />
+                            <TextBlock x:Name="beverageRevenue3" Grid.Column="1" FontSize="16" Foreground="Green" FontWeight="Bold" HorizontalAlignment="Right" />
 
 						</Grid>
 					</Border>
@@ -244,7 +244,7 @@
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
 							<TextBlock x:Name="topBeverage4" Grid.Column="0" FontSize="16" Foreground="Black" />
-							<TextBlock x:Name="beverageRevenue4" Grid.Column="1" FontSize="16" Foreground="Black" HorizontalAlignment="Right" />
+                            <TextBlock x:Name="beverageRevenue4" Grid.Column="1" FontSize="16" Foreground="Green" FontWeight="Bold" HorizontalAlignment="Right" />
 
 						</Grid>
 					</Border>
@@ -259,7 +259,7 @@
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
 							<TextBlock x:Name="topBeverage5" Grid.Column="0" FontSize="16" Foreground="Black" />
-							<TextBlock x:Name="beverageRevenue5" Grid.Column="1" FontSize="16" Foreground="Black" HorizontalAlignment="Right" />
+                            <TextBlock x:Name="beverageRevenue5" Grid.Column="1" FontSize="16" Foreground="Green" FontWeight="Bold" HorizontalAlignment="Right" />
 
 						</Grid>
 					</Border>
@@ -282,7 +282,7 @@
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
 							<TextBlock x:Name="topAmountBeverage1" Grid.Column="0" Grid.Row="0" FontSize="16" Foreground="Black" />
-							<TextBlock x:Name="beverageAmount1" Grid.Column="1" Grid.Row="0" FontSize="16" Foreground="Black" HorizontalAlignment="Right" />
+                            <TextBlock x:Name="beverageAmount1" Grid.Column="1" Grid.Row="0" FontSize="16" Foreground="Green" FontWeight="Bold" HorizontalAlignment="Right" />
 						</Grid>
 					</Border>
 					<Border Margin="5" Height="50">
@@ -296,7 +296,7 @@
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
 							<TextBlock x:Name="topAmountBeverage2" Grid.Column="0" Grid.Row="0" FontSize="16" Foreground="Black" />
-							<TextBlock x:Name="beverageAmount2" Grid.Column="1" Grid.Row="0" FontSize="16" Foreground="Black" HorizontalAlignment="Right" />
+                            <TextBlock x:Name="beverageAmount2" Grid.Column="1" Grid.Row="0" FontSize="16" Foreground="Green" FontWeight="Bold" HorizontalAlignment="Right" />
 						</Grid>
 					</Border>
 					<Border Margin="5" Height="50">
@@ -310,7 +310,7 @@
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
 							<TextBlock x:Name="topAmountBeverage3" Grid.Column="0" Grid.Row="0" FontSize="16" Foreground="Black" />
-							<TextBlock x:Name="beverageAmount3" Grid.Column="1" Grid.Row="0" FontSize="16" Foreground="Black" HorizontalAlignment="Right" />
+                            <TextBlock x:Name="beverageAmount3" Grid.Column="1" Grid.Row="0" FontSize="16" Foreground="Green" FontWeight="Bold" HorizontalAlignment="Right" />
 						</Grid>
 					</Border>
 					<Border Margin="5" Height="50">
@@ -324,7 +324,7 @@
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
 							<TextBlock x:Name="topAmountBeverage4" Grid.Column="0" Grid.Row="0" FontSize="16" Foreground="Black" />
-							<TextBlock x:Name="beverageAmount4" Grid.Column="1" Grid.Row="0" FontSize="16" Foreground="Black" HorizontalAlignment="Right" />
+                            <TextBlock x:Name="beverageAmount4" Grid.Column="1" Grid.Row="0" FontSize="16" Foreground="Green" FontWeight="Bold" HorizontalAlignment="Right" />
 						</Grid>
 					</Border>
 					<Border Margin="5" Height="50">
@@ -338,7 +338,7 @@
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
 							<TextBlock x:Name="topAmountBeverage5" Grid.Column="0" Grid.Row="0" FontSize="16" Foreground="Black" />
-							<TextBlock x:Name="beverageAmount5" Grid.Column="1" Grid.Row="0" FontSize="16" Foreground="Black" HorizontalAlignment="Right" />
+                            <TextBlock x:Name="beverageAmount5" Grid.Column="1" Grid.Row="0" FontSize="16" Foreground="Green" FontWeight="Bold" HorizontalAlignment="Right" />
 						</Grid>
 					</Border>
 				</StackPanel>

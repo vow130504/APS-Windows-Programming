@@ -104,3 +104,4 @@ public sealed partial class RevenuePage : Page
         }
     }
 }
+

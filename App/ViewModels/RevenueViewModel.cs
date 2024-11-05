@@ -60,6 +60,10 @@ public class RevenueViewModel : ObservableRecipient, INotifyPropertyChanged
         }
     }
 
+    public string TotalRevenueFormatted => $"{TotalRevenue:N0} VND";
+    public string CashAmountFormatted => $"{CashAmount:N0} VND";
+    public string TransferAmountFormatted => $"{TransferAmount:N0} VND";
+
     public string RevenueText
     {
         get => _revenueText;
