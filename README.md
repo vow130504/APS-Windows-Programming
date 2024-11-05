@@ -12,7 +12,7 @@
 ### 1. 20% UI/UX: 
 - Giao diện gọn gàng hợp lí, gần gũi với người sử dụng. 
 - Có xử lí bắt các lỗi cơ bản và các dữ liệu không đúng định dạng
-- Một số phương thức chưa được xử lí, do dữ liệu thuộc vào dữ liệu ở chức năng tiếp theo: 
+- Một số phương thức chưa được xử lí, do phải phụ thuộc vào dữ liệu ở chức năng tiếp theo: 
 	+ Quản lí tồn kho: chức năng xem chi tiết, xuất ra file excel
 ### 2. 30% design patterns/architecture: 
 - Kiến trúc phần mềm được tổ chức theo MVVM để thuận tiện cho việc mở rộng cũng như bảo trì
