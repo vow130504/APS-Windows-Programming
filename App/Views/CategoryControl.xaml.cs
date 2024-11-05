@@ -53,10 +53,10 @@ public sealed partial class CategoryControl : UserControl
                     var invoiceItem = new InvoiceItem
                     {
                         BeverageId = product.Id,
-                        Name = product.Name,
-                        Price = product.Price,
-                        Quantity = dialog.Quantity,
                         Size = dialog.SelectedSize,
+                        Name = product.Name,
+                        Price = App.GetService<IDao>().GetProductPrice(product.Id, dialog.SelectedSize),
+                        Quantity = dialog.Quantity,
                         Note = !string.IsNullOrEmpty(note) ? note : "Không có ghi chú",
                     };
 

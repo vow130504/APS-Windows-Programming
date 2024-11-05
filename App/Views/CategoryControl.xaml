@@ -17,6 +17,7 @@
 
     <StackPanel Grid.Column="0">
         <Pivot ItemsSource="{x:Bind ViewModel.ListTypeBeverages, Mode=OneWay}" >
+<<<<<<< HEAD
             <PivotItem Header="All">
                 <GridView Padding="20,60,20,0" ItemsSource="{x:Bind ViewModel.GetAllBeverage()}" IsItemClickEnabled="True" ItemClick="GridView_ItemClick">
                     <GridView.ItemTemplate>
@@ -41,6 +42,8 @@
                     </GridView.ItemTemplate>
                 </GridView>
             </PivotItem>
+=======
+>>>>>>> b874769c959a1343cccc6807907516872d8b7fa7
             <Pivot.HeaderTemplate>
                 <DataTemplate x:DataType="model:Category">
                     <TextBlock Text="{x:Bind Name}" FontSize="14" />
@@ -49,7 +52,7 @@
             <Pivot.ItemTemplate>
                 <DataTemplate x:DataType="model:Category">
                     <PivotItem>
-                        <GridView Padding="20,60,20,0" ItemsSource="{x:Bind Products}" IsItemClickEnabled="True" ItemClick="GridView_ItemClick">
+                        <GridView Padding="20,60,20,0" ItemsSource="{x:Bind Products}" IsItemClickEnabled="True" ItemClick="GridView_ItemClick" Height="670">
                             <GridView.ItemTemplate>
                                 <DataTemplate x:DataType="model:Product">
                                     <Grid>

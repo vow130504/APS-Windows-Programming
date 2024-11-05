@@ -17,4 +17,5 @@ public interface IDao
     List<string> GetAllPaymentMethod();
     bool CompletePendingOrder(Invoice order);
     FullObservableCollection<Product> GetAllBeverage();
+    int GetProductPrice(int beverageId, string size);
 }

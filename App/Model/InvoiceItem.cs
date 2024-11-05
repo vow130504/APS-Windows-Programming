@@ -16,7 +16,7 @@ public class InvoiceItem : INotifyPropertyChanged
     {
         get; set;
     }
-    public decimal Price
+    public int Price
     {
         get; set;
     }

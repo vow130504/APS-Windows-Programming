@@ -20,26 +20,27 @@ public class MockDao : IDao
         // Dữ liệu mẫu cho BEVERAGE với mã loại thức uống
         _products = new()
         {
-            new() { Id = 1, Name = "Latte", Price = 45000, Image = "/Assets/latte.jpg", TypeBeverageId = 1 },
-            new() { Id = 2, Name = "Green Tea", Price = 35000, Image = "/Assets/green_tea.jpg", TypeBeverageId = 2 },
-            new() { Id = 3, Name = "Milk Tea", Price = 30000, Image = "/Assets/milk_tea.jpg", TypeBeverageId = 2 },
-            new() { Id = 4, Name = "Orange Juice", Price = 25000, Image = "/Assets/orange_juice.jpg", TypeBeverageId = 3 },
-            new() { Id = 5, Name = "Espresso", Price = 40000, Image = "/Assets/espresso.jpg", TypeBeverageId = 1 },
-            new() { Id = 6, Name = "Black Coffee", Price = 30000, Image = "/Assets/black_coffee.jpg", TypeBeverageId = 1 },
-            new() { Id = 7, Name = "Oolong Tea", Price = 35000, Image = "/Assets/oolong_tea.jpg", TypeBeverageId = 2 },
-            new() { Id = 8, Name = "Apple Juice", Price = 27000, Image = "/Assets/apple_juice.jpg", TypeBeverageId = 3 },
-            new() { Id = 9, Name = "Smoothie", Price = 45000, Image = "/Assets/smoothie.jpg", TypeBeverageId = 4 },
-            new() { Id = 10, Name = "Iced Latte", Price = 50000, Image = "/Assets/iced_latte.jpg", TypeBeverageId = 1 },
-            new() { Id = 11, Name = "Matcha Latte", Price = 48000, Image = "/Assets/matcha_latte.jpg", TypeBeverageId = 2 },
-            new() { Id = 12, Name = "Lemon Tea", Price = 32000, Image = "/Assets/lemon_tea.jpg", TypeBeverageId = 2 },
-            new() { Id = 13, Name = "Pineapple Juice", Price = 29000, Image = "/Assets/pineapple_juice.jpg", TypeBeverageId = 3 },
-            new() { Id = 14, Name = "Mango Smoothie", Price = 47000, Image = "/Assets/mango_smoothie.jpg", TypeBeverageId = 4 },
-            new() { Id = 15, Name = "Cappuccino", Price = 42000, Image = "/Assets/cappuccino.jpg", TypeBeverageId = 1 }
+            new() { Id = 1, Name = "Latte", Image = "/Assets/latte.jpg", TypeBeverageId = 1 },
+            new() { Id = 2, Name = "Green Tea", Image = "/Assets/green_tea.jpg", TypeBeverageId = 2 },
+            new() { Id = 3, Name = "Milk Tea", Image = "/Assets/milk_tea.jpg", TypeBeverageId = 2 },
+            new() { Id = 4, Name = "Orange Juice", Image = "/Assets/orange_juice.jpg", TypeBeverageId = 3 },
+            new() { Id = 5, Name = "Espresso", Image = "/Assets/espresso.jpg", TypeBeverageId = 1 },
+            new() { Id = 6, Name = "Black Coffee", Image = "/Assets/black_coffee.jpg", TypeBeverageId = 1 },
+            new() { Id = 7, Name = "Oolong Tea", Image = "/Assets/oolong_tea.jpg", TypeBeverageId = 2 },
+            new() { Id = 8, Name = "Apple Juice", Image = "/Assets/apple_juice.jpg", TypeBeverageId = 3 },
+            new() { Id = 9, Name = "Smoothie", Image = "/Assets/smoothie.jpg", TypeBeverageId = 4 },
+            new() { Id = 10, Name = "Iced Latte", Image = "/Assets/iced_latte.jpg", TypeBeverageId = 1 },
+            new() { Id = 11, Name = "Matcha Latte", Image = "/Assets/matcha_latte.jpg", TypeBeverageId = 2 },
+            new() { Id = 12, Name = "Lemon Tea", Image = "/Assets/lemon_tea.jpg", TypeBeverageId = 2 },
+            new() { Id = 13, Name = "Pineapple Juice", Image = "/Assets/pineapple_juice.jpg", TypeBeverageId = 3 },
+            new() { Id = 14, Name = "Mango Smoothie", Image = "/Assets/mango_smoothie.jpg", TypeBeverageId = 4 },
+            new() { Id = 15, Name = "Cappuccino", Image = "/Assets/cappuccino.jpg", TypeBeverageId = 1 }
         };
 
         // Dữ liệu mẫu cho CATEGORY
         _categories = new()
         {
+            new("All", new FullObservableCollection<Product>(_products.ToList())),
             new("Coffee", new FullObservableCollection<Product>(_products.Where(p => p.TypeBeverageId == 1).ToList())),
             new("Tea", new FullObservableCollection<Product>(_products.Where(p => p.TypeBeverageId == 2).ToList())),
             new("Juice", new FullObservableCollection<Product>(_products.Where(p => p.TypeBeverageId == 3).ToList())),
@@ -107,6 +108,49 @@ public class MockDao : IDao
     {
         return new FullObservableCollection<Category>(_categories);
     }
+    public int GetProductPrice(int beverageId, string size)
+    {
+        // Bảng giá dựa trên beverageId và kích thước sản phẩm
+        var priceTable = new Dictionary<int, Dictionary<string, int>>
+    {
+        { 1, new Dictionary<string, int> { { "S", 40000 }, { "M", 45000 }, { "L", 50000 } } }, // Latte
+        { 2, new Dictionary<string, int> { { "S", 30000 }, { "M", 35000 }, { "L", 38000 } } }, // Green Tea
+        { 3, new Dictionary<string, int> { { "S", 28000 }, { "M", 30000 }, { "L", 35000 } } }, // Milk Tea
+        { 4, new Dictionary<string, int> { { "S", 25000 }, { "M", 27000 }, { "L", 30000 } } }, // Orange Juice
+        { 5, new Dictionary<string, int> { { "S", 40000 }, { "M", 45000 } } }, // Espresso
+        { 6, new Dictionary<string, int> { { "S", 35000 }, { "M", 37000 }, { "L", 40000 } } }, // Black Coffee
+        { 7, new Dictionary<string, int> { { "S", 32000 }, { "M", 35000 }, { "L", 38000 } } }, // Oolong Tea
+        { 8, new Dictionary<string, int> { { "S", 27000 }, { "M", 29000 }, { "L", 31000 } } }, // Apple Juice
+        { 9, new Dictionary<string, int> { { "M", 45000 }, { "L", 50000 } } }, // Smoothie
+        { 10, new Dictionary<string, int> { { "S", 42000 }, { "M", 47000 }, { "L", 50000 } } }, // Iced Latte
+        { 11, new Dictionary<string, int> { { "S", 43000 }, { "M", 48000 }, { "L", 51000 } } }, // Matcha Latte
+        { 12, new Dictionary<string, int> { { "S", 28000 }, { "M", 32000 }, { "L", 35000 } } }, // Lemon Tea
+        { 13, new Dictionary<string, int> { { "S", 27000 }, { "M", 29000 }, { "L", 31000 } } }, // Pineapple Juice
+        { 14, new Dictionary<string, int> { { "M", 47000 }, { "L", 50000 } } }, // Mango Smoothie
+        { 15, new Dictionary<string, int> { { "S", 42000 }, { "M", 45000 }, { "L", 48000 } } }  // Cappuccino
+    };
+
+        // Kiểm tra beverageId và kích thước trong bảng giá
+        if (priceTable.ContainsKey(beverageId))
+        {
+            if (priceTable[beverageId].ContainsKey(size))
+            {
+                return priceTable[beverageId][size];  // Trả về giá nếu tìm thấy beverageId và kích thước
+            }
+            else
+            {
+                Console.WriteLine($"Kích thước '{size}' không có sẵn cho beverageId '{beverageId}'.");
+                return -1;  // Trả về -1 nếu không tìm thấy kích thước
+            }
+        }
+        else
+        {
+            Console.WriteLine($"BeverageId '{beverageId}' không có trong bảng giá.");
+            return -1;  // Trả về -1 nếu không tìm thấy beverageId
+        }
+    }
+
+
 
     public FullObservableCollection<Invoice> GetPendingOrders()
     {
