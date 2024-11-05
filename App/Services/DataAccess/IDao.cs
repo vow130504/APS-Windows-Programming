@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using App.Model;
+using App.Views;
 using Microsoft.UI.Xaml.Controls;
 
 namespace App;
@@ -18,4 +19,17 @@ public interface IDao
     bool CompletePendingOrder(Invoice order);
     FullObservableCollection<Product> GetAllBeverage();
     int GetProductPrice(int beverageId, string size);
+
+    List<Material> GetAllMaterials();
+    Material GetMaterialByCode(string code);
+    bool AddMaterial(Material material);
+    bool UpdateMaterial(Material material);
+    bool DeleteMaterial(string code);
+
+
+
+    // Quản lý người dùng
+    List<User> GetAllUsers();
+    User GetUserByUsername(string username);
+    bool AddUser(User user);
 }

@@ -16,6 +16,7 @@ public class PageService : IPageService
     {
         Configure<SalePageViewModel, SalePage>();
         Configure<RevenueViewModel, RevenuePage>();
+        Configure<InventoryManagementViewModel, InventoryManagementPage>();
     }
 
     public Type GetPageType(string key)

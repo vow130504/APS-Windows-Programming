@@ -92,11 +92,11 @@
         <StackPanel Grid.Row="1" VerticalAlignment="Bottom" Margin="5">
             <!-- Thông tin tổng cộng -->
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Tổng hàng: " FontWeight="Bold" Margin="0,0,5,0" Foreground="{ThemeResource SystemControlForegroundAccentBrush}"/>
+                <TextBlock Text="Tổng hàng: " FontWeight="Bold" Margin="0,0,5,0" Foreground="{StaticResource SecondaryColor}"/>
                 <TextBlock Text="{x:Bind ViewModel.TotalQuantity, Mode=OneWay}" FontWeight="Bold" Foreground="Black"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Tổng tiền: " FontWeight="Bold"  Margin="0,0,5,0" Foreground="{ThemeResource SystemControlForegroundAccentBrush}"/>
+                <TextBlock Text="Tổng tiền: " FontWeight="Bold"  Margin="0,0,5,0" Foreground="{StaticResource SecondaryColor}"/>
                 <TextBlock Text="{x:Bind ViewModel.TotalPrice, Mode=OneWay}" FontWeight="Bold" Foreground="Black"/>
             </StackPanel>
             <TextBlock
@@ -107,7 +107,7 @@
 
             <!-- Nút yêu cầu thanh toán -->
             <Button Visibility="{x:Bind ViewModel.IsPaid,Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
-                 Content="Yêu cầu thanh toán" HorizontalAlignment="Right" Click="CheckoutButton_Click" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
+                 Content="Yêu cầu thanh toán" HorizontalAlignment="Right" Click="CheckoutButton_Click" Background="{StaticResource PrimaryColor}" Foreground="White"/>
 
         </StackPanel>
     </Grid>

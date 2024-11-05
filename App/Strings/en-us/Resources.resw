@@ -130,6 +130,9 @@
     <value>Bán hàng</value>
   </data>
   <data name="Shell_Revenue.Content" xml:space="preserve">
-    <value>Revenue</value>
+    <value>Quản lý doanh thu</value>
+  </data>
+  <data name="Shell_InventoryManagement.Content" xml:space="preserve">
+    <value>Quản lý kho</value>
   </data>
 </root>
