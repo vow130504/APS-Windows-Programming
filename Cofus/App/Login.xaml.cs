@@ -18,19 +18,16 @@ using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.System;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
-
 namespace App
 {
-    /// <summary>
-    /// An empty window that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class Login : Window
     {
+        private ICoffeeShopDAO _dao;
+
         public Login()
         {
             this.InitializeComponent();
+            _dao = new MockCoffeeShopDAO();
         }
 
         private void SwitchToSignUp(object sender, RoutedEventArgs e)
@@ -47,33 +44,8 @@ namespace App
 
         private bool CheckLogin(string user, string password)
         {
-            return user == "123" && password == "123";
-        }
-
-        private void Window_Activated(object sender, WindowActivatedEventArgs args)
-        {
-            Title = "App is ready";
-
-            try
-            {
-                var localSettings = ApplicationData.Current.LocalSettings;
-                if (localSettings.Values.ContainsKey("user"))
-                {
-                    usernameTextBox.Text = localSettings.Values["user"].ToString();
-                    var encryptedPasswordInBase64 = localSettings.Values["password"].ToString();
-                    var entropyInBase64 = localSettings.Values["entropy"].ToString();
-
-                    var encryptedPasswordInBytes = Convert.FromBase64String(encryptedPasswordInBase64);
-                    var entropyInBytes = Convert.FromBase64String(entropyInBase64);
-                    var passwordInBytes = ProtectedData.Unprotect(encryptedPasswordInBytes, entropyInBytes, DataProtectionScope.CurrentUser);
-                    passwordBox.Password = Encoding.UTF8.GetString(passwordInBytes);
-                }
-            }
-            catch (Exception ex)
-            {
-                // Log or handle the exception
-                Console.WriteLine($"An error occurred: {ex.Message}");
-            }
+            var existingUser = _dao.GetUserByUsername(user);
+            return existingUser != null && existingUser.Password == password;
         }
 
         private async void Login_Click(object sender, RoutedEventArgs e)
@@ -86,9 +58,7 @@ namespace App
                 if (rememberCheckBox.IsChecked == true)
                 {
                     var passwordInBytes = Encoding.UTF8.GetBytes(password);
-
                     var entropyInBytes = new byte[20];
-
                     using (var rng = RandomNumberGenerator.Create())
                     {
                         rng.GetBytes(entropyInBytes);
@@ -104,8 +74,7 @@ namespace App
                 }
 
                 var screen = new InventoryManagement();
-                this.Content = screen; // Gán nội dung của cửa sổ hiện tại là trang mới
-
+                this.Content = screen;
             }
             else
             {
@@ -117,43 +86,24 @@ namespace App
                 }.ShowAsync();
             }
         }
+
         private async void Signup_Click(object sender, RoutedEventArgs e)
         {
             string user = usernameTextBox.Text;
             string password = passwordBox.Password;
 
-            if (CheckLogin(user, password))
+            if (_dao.GetUserByUsername(user) == null)
             {
-                if (rememberCheckBox.IsChecked == true)
-                {
-                    var passwordInBytes = Encoding.UTF8.GetBytes(password);
-
-                    var entropyInBytes = new byte[20];
-
-                    using (var rng = RandomNumberGenerator.Create())
-                    {
-                        rng.GetBytes(entropyInBytes);
-                    }
-                    var encryptedPassword = ProtectedData.Protect(passwordInBytes, entropyInBytes, DataProtectionScope.CurrentUser);
-                    var encryptedPasswordInBase64 = Convert.ToBase64String(encryptedPassword);
-                    var entropyInBase64 = Convert.ToBase64String(entropyInBytes);
-
-                    var localSettings = ApplicationData.Current.LocalSettings;
-                    localSettings.Values["user"] = user;
-                    localSettings.Values["password"] = encryptedPasswordInBase64;
-                    localSettings.Values["entropy"] = entropyInBase64;
-                }
-
+                _dao.AddUser(new User { Username = user, Password = password });
                 var screen = new HomePage();
-                this.Content = screen; // Gán nội dung của cửa sổ hiện tại là trang mới
-
+                this.Content = screen;
             }
             else
             {
                 await new ContentDialog()
                 {
                     XamlRoot = this.Content.XamlRoot,
-                    Content = "Incorrect username or password entered\n",
+                    Content = "Username already exists\n",
                     CloseButtonText = "OK"
                 }.ShowAsync();
             }
