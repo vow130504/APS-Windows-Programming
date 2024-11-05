@@ -23,6 +23,7 @@ public sealed partial class SalePage : Page
     {
         this.InitializeComponent();
         ViewModel = new SalePageViewModel();
+        ViewCategory_Click(null, null);
     }
 
     public void TabView_Loaded(object sender, RoutedEventArgs e)

@@ -34,14 +34,28 @@ public sealed partial class ShellPage : Page
         App.MainWindow.SetTitleBar(AppTitleBar);
         App.MainWindow.Activated += MainWindow_Activated;
         AppTitleBarText.Text = "AppDisplayName".GetLocalized();
-    }
 
+        Loaded += ShellPage_Loaded;
+    }
+    private void ShellPage_Loaded(object sender, RoutedEventArgs e)
+    {
+        foreach (var item in NavigationViewControl.MenuItems)
+        {
+            if (item is NavigationViewItem navigationViewItem && navigationViewItem.Tag.ToString() == "SalePage")
+            {
+                NavigationViewControl.SelectedItem = navigationViewItem;
+                ViewModel.NavigationService.NavigateTo("App.ViewModels.SalePageViewModel");
+                break;
+            }
+        }
+    }
     private void OnLoaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
     {
         TitleBarHelper.UpdateTitleBar(RequestedTheme);
 
         KeyboardAccelerators.Add(BuildKeyboardAccelerator(VirtualKey.Left, VirtualKeyModifiers.Menu));
         KeyboardAccelerators.Add(BuildKeyboardAccelerator(VirtualKey.GoBack));
+
     }
 
     private void MainWindow_Activated(object sender, WindowActivatedEventArgs args)

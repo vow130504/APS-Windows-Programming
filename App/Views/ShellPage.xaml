@@ -43,13 +43,13 @@
                 TODO: Update item icons by updating FontIcon.Glyph properties.
                 https://docs.microsoft.com/windows/apps/design/style/segoe-fluent-icons-font#icon-list
                 -->
-                <NavigationViewItem x:Uid="Shell_SalePage" helpers:NavigationHelper.NavigateTo="App.ViewModels.SalePageViewModel">
+                <NavigationViewItem x:Uid="Shell_SalePage" Tag="SalePage" helpers:NavigationHelper.NavigateTo="App.ViewModels.SalePageViewModel" >
                     <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xea37;"/>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE764;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                
-                <NavigationViewItem x:Uid="Shell_Revenue" helpers:NavigationHelper.NavigateTo="App.ViewModels.RevenueViewModel">
+
+                <NavigationViewItem x:Uid="Shell_Revenue" Tag="RevenuePage" helpers:NavigationHelper.NavigateTo="App.ViewModels.RevenueViewModel">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe7c3;"/>
                     </NavigationViewItem.Icon>
