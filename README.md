@@ -9,6 +9,14 @@
 - Ngoài ra, trong quá trình làm, nhóm thực hiện đồng thời việc xây dựng giao diện ứng dụng giúp cho thông tin được trình bày một cách dễ nhìn, đẹp mắt. Đồng thời, theo tìm hiểu và theo dõi thông tin trên Moodle, nhóm sử dụng lớp MockDao để code cứng dữ liệu cho milestone 1 này.
 
 ## Nhận xét, đánh giá kết quả các tiêu chí thực hiện:
+### 1. 20% UI/UX: 
+- Giao diện gọn gàng hợp lí, gần gũi với người sử dụng. 
+- Có xử lí bắt các lỗi cơ bản và các dữ liệu không đúng định dạng
+- Một số phương thức chưa được xử lí, do dữ liệu thuộc vào dữ liệu ở chức năng tiếp theo: 
+	+ Quản lí tồn kho: chức năng xem chi tiết, xuất ra file excel
+### 2. 30% design patterns/architecture: 
+- Kiến trúc phần mềm được tổ chức theo MVVM để thuận tiện cho việc mở rộng cũng như bảo trì
+- Mã nguồn có chú thích giải thích công dụng đầy đủ cho các lớp và hàm 
 ### 3. Advanced topic:
 - Nhóm đã thực hiện được được các xử lý như:
 ### 4. Teamwork - Git flow: 
