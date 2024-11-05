@@ -5,6 +5,7 @@ using System;
 using PropertyChanged;
 using App.ViewModels;
 using DemoListBinding1610;
+using System.ComponentModel;
 
 namespace App.Views;
 
@@ -135,4 +136,22 @@ public sealed partial class InvoiceControl : UserControl
             ViewModel.Invoice.RemoveItem(itemToDelete);
         }
     }
+    private void QuantityTextBox_BeforeTextChanging(TextBox sender, TextBoxBeforeTextChangingEventArgs args)
+    {
+        // Chỉ cho phép ký tự số
+        args.Cancel = args.NewText.Any(c => !char.IsDigit(c));
+    }
+    //public void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    //{
+    //    if (e.PropertyName == nameof(InvoiceControlViewModel.IsPaid))
+    //    {
+    //        // Vô hiệu hóa TextBox nếu IsPaid là true
+    //        var viewModel = sender as InvoiceControlViewModel;
+    //        if (viewModel != null)
+    //        {
+    //            QuantityTextBox.IsEnabled = !viewModel.IsPaid;
+    //        }
+    //    }
+    //}
+
 }
