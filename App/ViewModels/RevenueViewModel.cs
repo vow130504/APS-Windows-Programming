@@ -1,4 +1,5 @@
 ﻿using App.Services;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace App.ViewModels;
 
-public class RevenueViewModel : INotifyPropertyChanged
+public class RevenueViewModel : ObservableRecipient, INotifyPropertyChanged
 {
     private readonly MockDao _mockDao = new MockDao();
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using App;
 using App.Model;
+using App.ViewModels;
 using Microsoft.UI.Xaml.Controls;
 
 namespace App;
@@ -11,7 +12,6 @@ namespace App;
 public class MockDao : IDao
 {
     private readonly FullObservableCollection<Category> _categories;
-    private readonly FullObservableCollection<TypeBeverage> _typeBeverages;
     private readonly FullObservableCollection<Invoice> _pendingOrders;
     private readonly FullObservableCollection<Product> _products;
 
