@@ -33,6 +33,10 @@ public class InvoiceItem : INotifyPropertyChanged
             }
         }
     }
+    public string Size
+    {
+        get; set;
+    }
     public string Note
     {
         get; set;

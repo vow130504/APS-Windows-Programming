@@ -7,9 +7,18 @@
     SecondaryButtonText="Hủy"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
 
-    <StackPanel>
+    <StackPanel Padding="20" Spacing="10">
+        <!-- Lựa chọn Size -->
+        <TextBlock Text="Kích cỡ:" />
+        <ComboBox x:Name="sizeComboBox" SelectedIndex="0">
+            <ComboBoxItem Content="M" />
+            <ComboBoxItem Content="L" />
+        </ComboBox>
+
+        <!-- Ô nhập số lượng -->
         <TextBlock Text="Số lượng:" />
-        <TextBox x:Name="quantityTextBox" />
+        <TextBox x:Name="quantityTextBox" InputScope="Number" BeforeTextChanging="QuantityTextBox_BeforeTextChanging" />
+        <!-- Ô nhập ghi chú -->
         <TextBlock Text="Ghi chú:" />
         <TextBox x:Name="notesTextBox" />
     </StackPanel>

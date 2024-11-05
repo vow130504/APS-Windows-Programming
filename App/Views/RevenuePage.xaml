@@ -1,0 +1,348 @@
+﻿<Page
+    x:Class="App.Views.Revenue"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:App.Views"
+    xmlns:viewModels="using:App.ViewModels"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+	<Grid Background="#e3e4e9" Padding="15" Margin="0" Height="600">
+		<StackPanel Background="White" Orientation="Vertical" VerticalAlignment="Top" Padding="10" Margin="0,0,0,0">
+			<TextBlock Text="Tổng quan"
+                FontSize="20"
+                FontWeight="Bold"
+                Foreground="Black"
+                Margin="5,0,0,10" />
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="3*" />
+					<ColumnDefinition Width="2.33*" />
+					<ColumnDefinition Width="2.33*" />
+					<ColumnDefinition Width="2.33*" />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="135" />
+				</Grid.RowDefinitions>
+
+				<Border Margin="5" Height="120" Grid.Column="0">
+					<Border.Background>
+						<LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+							<GradientStop Color="#6F4C3E" Offset="0" />
+							<GradientStop Color="#A0522D" Offset="0.5" />
+							<GradientStop Color="#D27955" Offset="1.0" />
+						</LinearGradientBrush>
+					</Border.Background>
+					<StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Padding="10,10,10,10">
+						<TextBlock Text="Doanh thu hôm nay" FontSize="18" Foreground="White" HorizontalAlignment="Left" />
+						<TextBlock Text="{Binding TotalRevenue}" Margin="0,20,0,0" FontSize="21" Foreground="White" HorizontalAlignment="Left" />
+					</StackPanel>
+				</Border>
+
+				<Border Margin="5" Height="120" Grid.Column="1">
+					<Border.Background>
+						<LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+							<GradientStop Color="#6F4C3E" Offset="0" />
+							<GradientStop Color="#A0522D" Offset="0.5" />
+							<GradientStop Color="#D27955" Offset="1.0" />
+						</LinearGradientBrush>
+					</Border.Background>
+					<StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Padding="10,10,10,10">
+						<TextBlock Text="Số đơn nước" FontSize="18" Foreground="White" HorizontalAlignment="Left" />
+						<TextBlock Text="{Binding OrderCount}" Margin="0,20,0,0" FontSize="21" Foreground="White" HorizontalAlignment="Left" />
+					</StackPanel>
+				</Border>
+
+				<Border Margin="5" Height="120" Grid.Column="2">
+					<Border.Background>
+						<LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+							<GradientStop Color="#6F4C3E" Offset="0" />
+							<GradientStop Color="#A0522D" Offset="0.5" />
+							<GradientStop Color="#D27955" Offset="1.0" />
+						</LinearGradientBrush>
+					</Border.Background>
+					<StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Padding="10,10,10,10">
+						<TextBlock Text="Tiền mặt" FontSize="18" Foreground="White" HorizontalAlignment="Left" />
+						<TextBlock Text="{Binding CashAmount}" Margin="0,20,0,0" FontSize="21" Foreground="White" HorizontalAlignment="Left" />
+					</StackPanel>
+				</Border>
+
+				<Border Margin="5" Height="120" Grid.Column="3">
+					<Border.Background>
+						<LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+							<GradientStop Color="#6F4C3E" Offset="0" />
+							<GradientStop Color="#A0522D" Offset="0.5" />
+							<GradientStop Color="#D27955" Offset="1.0" />
+						</LinearGradientBrush>
+					</Border.Background>
+					<StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Padding="10,10,10,10">
+						<TextBlock Text="Chuyển khoản" FontSize="18" Foreground="White" HorizontalAlignment="Left" />
+						<TextBlock Text="{Binding TransferAmount}" Margin="0,20,0,0" FontSize="21" Foreground="White" HorizontalAlignment="Left" />
+					</StackPanel>
+				</Border>
+			</Grid>
+		</StackPanel>
+
+		<StackPanel Orientation="Vertical" VerticalAlignment="Top" Margin="0,202,0,0">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*" />
+				</Grid.RowDefinitions>
+
+				<StackPanel Grid.Column="2" Background="White" Padding="15">
+					<TextBlock Text="Món nước doanh thu cao"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       Foreground="Black"
+                       Margin="0,0,0,20" />
+
+					<!-- Top Product 1 -->
+					<Border Margin="5" Height="50">
+						<Grid Margin="0" HorizontalAlignment="Stretch">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<TextBlock x:Name="topProduct1" Grid.Column="0" Grid.Row="0" FontSize="16" Foreground="Black" />
+							<TextBlock x:Name="productRevenue1" Grid.Column="1" Grid.Row="0" FontSize="16" Foreground="Black" HorizontalAlignment="Right" />
+						</Grid>
+					</Border>
+
+					<!-- Top Product 2 -->
+					<Border Margin="5" Height="50">
+						<Grid Margin="0" HorizontalAlignment="Stretch">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<TextBlock x:Name="topProduct2" Grid.Column="0" Grid.Row="0" FontSize="16" Foreground="Black" />
+							<TextBlock x:Name="productRevenue2" Grid.Column="1" Grid.Row="0" FontSize="16" Foreground="Black" HorizontalAlignment="Right" />
+						</Grid>
+					</Border>
+
+					<!-- Top Product 3 -->
+					<Border Margin="5" Height="50">
+						<Grid Margin="0" HorizontalAlignment="Stretch">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<TextBlock x:Name="topProduct3" Grid.Column="0" Grid.Row="0" FontSize="16" Foreground="Black" />
+							<TextBlock x:Name="productRevenue3" Grid.Column="1" Grid.Row="0" FontSize="16" Foreground="Black" HorizontalAlignment="Right" />
+						</Grid>
+					</Border>
+
+					<!-- Top Product 4 -->
+					<Border Margin="5" Height="50">
+						<Grid Margin="0" HorizontalAlignment="Stretch">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<TextBlock x:Name="topProduct4" Grid.Column="0" Grid.Row="0" FontSize="16" Foreground="Black" />
+							<TextBlock x:Name="productRevenue4" Grid.Column="1" Grid.Row="0" FontSize="16" Foreground="Black" HorizontalAlignment="Right" />
+						</Grid>
+					</Border>
+
+					<!-- Top Product 5 -->
+					<Border Margin="5" Height="50">
+						<Grid Margin="0" HorizontalAlignment="Stretch">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<TextBlock x:Name="topProduct5" Grid.Column="0" Grid.Row="0" FontSize="16" Foreground="Black" />
+							<TextBlock x:Name="productRevenue5" Grid.Column="1" Grid.Row="0" FontSize="16" Foreground="Black" HorizontalAlignment="Right" />
+						</Grid>
+					</Border>
+				</StackPanel>
+
+				<StackPanel Grid.Column="1" Background="White" Margin="0,0,10,0" Padding="15">
+					<TextBlock Text="Loại nước doanh thu cao"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Foreground="Black"
+                    Margin="0,0,0,20" />
+					<Border Margin="5" Height="50">
+						<Grid Margin="0" HorizontalAlignment="Stretch">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<TextBlock x:Name="topBeverage1" Grid.Column="0" FontSize="16" Foreground="Black" />
+							<TextBlock x:Name="beverageRevenue1" Grid.Column="1" FontSize="16" Foreground="Black" HorizontalAlignment="Right" />
+						</Grid>
+					</Border>
+					<Border Margin="5" Height="50">
+						<Grid Margin="0" HorizontalAlignment="Stretch">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<TextBlock x:Name="topBeverage2" Grid.Column="0" FontSize="16" Foreground="Black" />
+							<TextBlock x:Name="beverageRevenue2" Grid.Column="1" FontSize="16" Foreground="Black" HorizontalAlignment="Right" />
+
+						</Grid>
+					</Border>
+					<Border Margin="5" Height="50">
+						<Grid Margin="0" HorizontalAlignment="Stretch">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<TextBlock x:Name="topBeverage3" Grid.Column="0" FontSize="16" Foreground="Black" />
+							<TextBlock x:Name="beverageRevenue3" Grid.Column="1" FontSize="16" Foreground="Black" HorizontalAlignment="Right" />
+
+						</Grid>
+					</Border>
+					<Border Margin="5" Height="50">
+						<Grid Margin="0" HorizontalAlignment="Stretch">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<TextBlock x:Name="topBeverage4" Grid.Column="0" FontSize="16" Foreground="Black" />
+							<TextBlock x:Name="beverageRevenue4" Grid.Column="1" FontSize="16" Foreground="Black" HorizontalAlignment="Right" />
+
+						</Grid>
+					</Border>
+					<Border Margin="5" Height="50">
+						<Grid Margin="0" HorizontalAlignment="Stretch">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<TextBlock x:Name="topBeverage5" Grid.Column="0" FontSize="16" Foreground="Black" />
+							<TextBlock x:Name="beverageRevenue5" Grid.Column="1" FontSize="16" Foreground="Black" HorizontalAlignment="Right" />
+
+						</Grid>
+					</Border>
+				</StackPanel>
+
+				<StackPanel Grid.Column="0" Background="White" Margin="0,0,10,0" Padding="15">
+					<TextBlock Text="Món nước bán chạy"
+                                    FontSize="20"
+                                    FontWeight="Bold"
+                                    Foreground="Black"
+                                    Margin="0,0,0,20" />
+					<Border Margin="5" Height="50">
+						<Grid Margin="0" HorizontalAlignment="Stretch">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<TextBlock x:Name="topAmountBeverage1" Grid.Column="0" Grid.Row="0" FontSize="16" Foreground="Black" />
+							<TextBlock x:Name="beverageAmount1" Grid.Column="1" Grid.Row="0" FontSize="16" Foreground="Black" HorizontalAlignment="Right" />
+						</Grid>
+					</Border>
+					<Border Margin="5" Height="50">
+						<Grid Margin="0" HorizontalAlignment="Stretch">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<TextBlock x:Name="topAmountBeverage2" Grid.Column="0" Grid.Row="0" FontSize="16" Foreground="Black" />
+							<TextBlock x:Name="beverageAmount2" Grid.Column="1" Grid.Row="0" FontSize="16" Foreground="Black" HorizontalAlignment="Right" />
+						</Grid>
+					</Border>
+					<Border Margin="5" Height="50">
+						<Grid Margin="0" HorizontalAlignment="Stretch">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<TextBlock x:Name="topAmountBeverage3" Grid.Column="0" Grid.Row="0" FontSize="16" Foreground="Black" />
+							<TextBlock x:Name="beverageAmount3" Grid.Column="1" Grid.Row="0" FontSize="16" Foreground="Black" HorizontalAlignment="Right" />
+						</Grid>
+					</Border>
+					<Border Margin="5" Height="50">
+						<Grid Margin="0" HorizontalAlignment="Stretch">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<TextBlock x:Name="topAmountBeverage4" Grid.Column="0" Grid.Row="0" FontSize="16" Foreground="Black" />
+							<TextBlock x:Name="beverageAmount4" Grid.Column="1" Grid.Row="0" FontSize="16" Foreground="Black" HorizontalAlignment="Right" />
+						</Grid>
+					</Border>
+					<Border Margin="5" Height="50">
+						<Grid Margin="0" HorizontalAlignment="Stretch">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<TextBlock x:Name="topAmountBeverage5" Grid.Column="0" Grid.Row="0" FontSize="16" Foreground="Black" />
+							<TextBlock x:Name="beverageAmount5" Grid.Column="1" Grid.Row="0" FontSize="16" Foreground="Black" HorizontalAlignment="Right" />
+						</Grid>
+					</Border>
+				</StackPanel>
+			</Grid>
+		</StackPanel>
+	</Grid>
+</Page>

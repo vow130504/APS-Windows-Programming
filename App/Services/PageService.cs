@@ -1,8 +1,8 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-
-using App.Contracts.Services;
+﻿using App.Contracts.Services;
 using App.ViewModels;
 using App.Views;
+
+using CommunityToolkit.Mvvm.ComponentModel;
 
 using Microsoft.UI.Xaml.Controls;
 
@@ -15,6 +15,7 @@ public class PageService : IPageService
     public PageService()
     {
         Configure<SalePageViewModel, SalePage>();
+        Configure<RevenueViewModel, RevenuePage>();
     }
 
     public Type GetPageType(string key)

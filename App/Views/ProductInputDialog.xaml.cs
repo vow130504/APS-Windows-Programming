@@ -1,19 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 
 namespace App.Views;
+
 public sealed partial class ProductInputDialog : ContentDialog
 {
     public ProductInputDialog()
@@ -21,9 +11,13 @@ public sealed partial class ProductInputDialog : ContentDialog
         this.InitializeComponent();
     }
 
-    public string Quantity
+    public int Quantity
     {
-        get => quantityTextBox.Text;
+        get
+        {
+            int.TryParse(quantityTextBox.Text, out int quantity);
+            return quantity;
+        }
     }
 
     public string Notes
@@ -31,8 +25,38 @@ public sealed partial class ProductInputDialog : ContentDialog
         get => notesTextBox.Text;
     }
 
+    public string SelectedSize
+    {
+        get
+        {
+            var selectedItem = sizeComboBox.SelectedItem as ComboBoxItem;
+            return selectedItem?.Content.ToString();
+        }
+    }
+
     private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
     {
-        // You can handle any logic here if needed
+        // Kiểm tra số lượng có hợp lệ không
+        if (!int.TryParse(quantityTextBox.Text, out int quantity) || quantity <= 0)
+        {
+            args.Cancel = true; // Ngăn không cho đóng dialog
+
+            // Hiển thị thông báo lỗi
+            var errorDialog = new ContentDialog
+            {
+                Title = "Lỗi",
+                Content = "Vui lòng nhập số lượng hợp lệ (số nguyên dương).",
+                CloseButtonText = "OK",
+                DefaultButton = ContentDialogButton.Close,
+                XamlRoot = this.XamlRoot // Đảm bảo hiển thị đúng
+            };
+            _ = errorDialog.ShowAsync();
+        }
+    }
+
+    private void QuantityTextBox_BeforeTextChanging(TextBox sender, TextBoxBeforeTextChangingEventArgs args)
+    {
+        // Chỉ cho phép nhập số
+        args.Cancel = args.NewText.Any(c => !char.IsDigit(c));
     }
 }

@@ -47,7 +47,7 @@ public sealed partial class CategoryControl : UserControl
 
             if (result == ContentDialogResult.Primary)
             {
-                if (int.TryParse(dialog.Quantity, out var quantity))
+                if (dialog.Quantity>0)
                 {
                     var note = dialog.Notes;
                     var invoiceItem = new InvoiceItem
@@ -55,8 +55,9 @@ public sealed partial class CategoryControl : UserControl
                         BeverageId = product.Id,
                         Name = product.Name,
                         Price = product.Price,
-                        Quantity = quantity,
-                        Note = (note!= "") ? note : "Không có ghi chú" ,
+                        Quantity = dialog.Quantity,
+                        Size = dialog.SelectedSize,
+                        Note = !string.IsNullOrEmpty(note) ? note : "Không có ghi chú",
                     };
 
                     // Tìm InvoiceTabView bên trong SalePage

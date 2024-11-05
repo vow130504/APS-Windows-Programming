@@ -1,5 +1,4 @@
-﻿using DemoListBinding1610;
-using App.Activation;
+﻿using App.Activation;
 using App.Contracts.Services;
 using App.Core.Contracts.Services;
 using App.Core.Services;
@@ -69,6 +68,8 @@ public partial class App : Application
             services.AddSingleton<IFileService, FileService>();
 
             // Views and ViewModels
+            services.AddTransient<RevenueViewModel>();
+            services.AddTransient<RevenuePage>();
 
             services.AddTransient<SalePage>();
             services.AddTransient<AuthenticationPage>();
