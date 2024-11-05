@@ -8,8 +8,12 @@
 - Thực hiện được chức năng quản lý kho hàng. (Gồm hiển thị các thông tin về nguyên vật liệu, có các chức năng để hiệu chỉnh, sửa đổi) 
 - Ngoài ra, trong quá trình làm, nhóm thực hiện đồng thời việc xây dựng giao diện ứng dụng giúp cho thông tin được trình bày một cách dễ nhìn, đẹp mắt.
 
-  ## Nhận xét, đánh giá kết quả các tiêu chí thực hiện:
-  - Về dữ liệu: Theo tìm hiểu và theo dõi thông tin trên Moodle, nhóm sử dụng lớp MockDao để code cứng dữ liệu.
-  - Về chức năng: Theo như kết quả mà nhóm cùng kiểm tra, các chức năng đã cơ bản được thực hiện đúng như mong muốn.
-  - Về giao diện: Theo như kết quả hiển thị trên ứng dụng, định dạng, màu sắc, cách thức trình bày của ứng dụng khá đẹp mắt, sinh động và thân thiện.
+## Nhận xét, đánh giá kết quả các tiêu chí thực hiện:
+- Về dữ liệu:
+  - Theo tìm hiểu và theo dõi thông tin trên Moodle, nhóm sử dụng lớp MockDao để code cứng dữ liệu.
+- Về chức năng:
+  - Theo như kết quả mà nhóm cùng kiểm tra, các chức năng đã cơ bản được thực hiện đúng như mong muốn.
+- Về giao diện:
+  - Theo như kết quả hiển thị trên ứng dụng, định dạng, màu sắc, cách thức trình bày của ứng dụng khá đẹp mắt, sinh động và thân thiện.
+ 
 
