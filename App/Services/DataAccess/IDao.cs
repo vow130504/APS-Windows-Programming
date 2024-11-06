@@ -20,12 +20,18 @@ public interface IDao
     FullObservableCollection<Product> GetAllBeverage();
     int GetProductPrice(int beverageId, string size);
 
+    // Revenue
+    Task<Revenue> GetRevenue(DateTime selectedDate, DateTime previousDate);
+    Task<List<TopProduct>> GetTopProducts(DateTime selectedDate);
+    Task<List<TopCategory>> GetTopCategories(DateTime selectedDate);
+    Task<List<TopSeller>> GetTopSellers(DateTime selectedDate);
+
+
     List<Material> GetAllMaterials();
     Material GetMaterialByCode(string code);
     bool AddMaterial(Material material);
     bool UpdateMaterial(Material material);
     bool DeleteMaterial(string code);
-
 
 
     // Quản lý người dùng
