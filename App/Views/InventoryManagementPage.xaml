@@ -13,12 +13,13 @@
                 <StackPanel Orientation="Horizontal" Spacing="10" Background="White" HorizontalAlignment="Center" Padding="20">
                     <TextBox x:Name="SearchBox" Foreground="Black" PlaceholderText="Tìm kiếm nguyên liệu..." Width="200" Background="Brown"/>
                     <Button Content="Tìm kiếm" Click="SearchButton_Click" Background="Brown"/>
-                    
-                    <ComboBox x:Name="CategoryFilter" Width="150" Background="Brown" VerticalAlignment="Center">
+
+                    <ComboBox x:Name="CategoryFilter" Width="150" Background="Brown" VerticalAlignment="Center"
+          ItemsSource="{x:Bind ViewModel.Categories}" 
+          SelectedItem="{x:Bind ViewModel.SelectedCategory, Mode=TwoWay}">
                         <ComboBoxItem Content="Tất cả"/>
-                        <ComboBoxItem Content="Cafe"/>
-                        <ComboBoxItem Content="Đồ uống khác"/>
                     </ComboBox>
+
                     <Button Content="Thêm" Click="AddButton_Click" Background="Brown"/>
                     <Button Content="Sửa" Click="EditButton_Click" Background="Brown"/>
                     <Button Content="Xóa" Click="DeleteButton_Click" Background="Brown"/>

@@ -24,12 +24,12 @@ namespace App.Views
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
             string searchText = SearchBox.Text.ToLower();
-            string selectedCategory = (CategoryFilter.SelectedItem as ComboBoxItem)?.Content?.ToString();
             DateTime? startExpirationDate = StartExpirationDatePicker.SelectedDate?.Date;
             DateTime? endExpirationDate = EndExpirationDatePicker.SelectedDate?.Date;
 
-            ViewModel.SearchMaterials(searchText, selectedCategory, startExpirationDate, endExpirationDate);
+            ViewModel.SearchMaterials(searchText, startExpirationDate, endExpirationDate);
         }
+
 
         private async void AddButton_Click(object sender, RoutedEventArgs e)
         {

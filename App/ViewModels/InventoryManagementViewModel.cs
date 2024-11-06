@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using App.Model;
 using System.Linq;
 using System;
+using System.ComponentModel;
 
 namespace App.ViewModels
 {
@@ -35,8 +36,18 @@ namespace App.ViewModels
 
         public InventoryManagementViewModel()
         {
+
             AllMaterials = new ObservableCollection<Material>(App.GetService<IDao>().GetAllMaterials());
+
+            // Thêm "Tất cả" vào đầu danh sách các phân loại
+            Categories = new ObservableCollection<string> { "Tất cả" };
+            foreach (var category in AllMaterials.Select(m => m.Category).Distinct())
+            {
+                Categories.Add(category);
+            }
+
             FilteredMaterials = new ObservableCollection<Material>();
+            SelectedCategory = "Tất cả"; // Hoặc một giá trị mặc định nếu cần
             currentPage = 0;
             UpdateCurrentPage();
         }
@@ -57,11 +68,11 @@ namespace App.ViewModels
             return (int)Math.Ceiling((double)AllMaterials.Count / itemsPerPage);
         }
 
-        public void SearchMaterials(string searchText, string selectedCategory, DateTime? startExpirationDate, DateTime? endExpirationDate)
+        public void SearchMaterials(string searchText, DateTime? startExpirationDate, DateTime? endExpirationDate)
         {
             var filtered = App.GetService<IDao>().GetAllMaterials().Where(m =>
                 (string.IsNullOrEmpty(searchText) || m.MaterialName.ToLower().Contains(searchText)) &&
-                (selectedCategory == "Tất cả" || string.IsNullOrEmpty(selectedCategory) || m.Category.Equals(selectedCategory)) &&
+                (SelectedCategory == "Tất cả" || m.Category.Equals(SelectedCategory)) &&
                 (!startExpirationDate.HasValue || m.ExpirationDate >= startExpirationDate.Value) &&
                 (!endExpirationDate.HasValue || m.ExpirationDate <= endExpirationDate.Value)).ToList();
 
@@ -69,5 +80,17 @@ namespace App.ViewModels
             currentPage = 0;
             UpdateCurrentPage();
         }
+
+
+        public ObservableCollection<string> Categories
+        {
+            get; set;
+        }
+        public string SelectedCategory
+        {
+            get; set;
+        }
+
+        
     }
 }
