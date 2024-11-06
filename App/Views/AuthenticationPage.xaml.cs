@@ -17,10 +17,13 @@ namespace App.Views;
 /// </summary>
 public sealed partial class AuthenticationPage : Page
 {
+
+    private IDao _dao;
     public AuthenticationPage()
     {
         this.InitializeComponent();
         RequestedTheme = ElementTheme.Light;
+        _dao = App.GetService<IDao>();
     }
 
     private void SwitchToSignUp(object sender, RoutedEventArgs e)
@@ -37,7 +40,9 @@ public sealed partial class AuthenticationPage : Page
 
     private bool CheckLogin(string user, string password)
     {
-        return user == "123" && password == "123";
+
+        var existingUser = _dao.GetUserByUsername(user);
+        return existingUser != null && existingUser.Password == password;
     }
 
     private async void Page_Loaded(object sender, RoutedEventArgs e)
