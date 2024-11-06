@@ -23,6 +23,7 @@
     <None Remove="Styles\TextBox.xaml" />
     <None Remove="Views\AuthenticationPage.xaml" />
     <None Remove="Views\CategoryControl.xaml" />
+    <None Remove="Views\InitializationScreen.xaml" />
     <None Remove="Views\InvoiceControl.xaml" />
     <None Remove="Views\PendingControl.xaml" />
     <None Remove="Views\ProductInputDialog.xaml" />
@@ -156,6 +157,12 @@
     <Content Update="Assets\tea.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\InitializationScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <ItemGroup>

@@ -81,6 +81,7 @@ public partial class App : Application
             services.AddTransient<SalePageViewModel>();
             services.AddTransient<ShellPage>();
             services.AddTransient<ShellViewModel>();
+            services.AddTransient<InitializationScreen>();
 
             // Configuration
         }).

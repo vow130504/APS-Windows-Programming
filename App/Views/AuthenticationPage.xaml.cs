@@ -24,6 +24,8 @@ public sealed partial class AuthenticationPage : Page
         this.InitializeComponent();
         RequestedTheme = ElementTheme.Light;
         _dao = App.GetService<IDao>();
+        System.Diagnostics.Debug.WriteLine("AuthenticationPage loaded successfully.");
+
     }
 
     private void SwitchToSignUp(object sender, RoutedEventArgs e)
