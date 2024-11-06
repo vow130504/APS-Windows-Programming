@@ -4,24 +4,19 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:App.ViewModels"
     xmlns:model="using:App.Model"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid Padding="20">
         <StackPanel Orientation="Vertical" Spacing="10" Background="White" Padding="0,20,0,10">
-            <!-- Search and Filter Area -->
             <StackPanel Orientation="Vertical">
-                <StackPanel Orientation="Horizontal" Spacing="10" Background="Black" HorizontalAlignment="Center" Height="100" Padding="20">
-                    <TextBox x:Name="SearchBox" Foreground="Black" PlaceholderText="Tìm kiếm nguyên liệu..." Width="200" Background="Brown" Height="10"/>
+                <StackPanel Orientation="Horizontal" Spacing="10" Background="Black" HorizontalAlignment="Center" Padding="20">
+                    <TextBox x:Name="SearchBox" Foreground="Black" PlaceholderText="Tìm kiếm nguyên liệu..." Width="200" Background="Brown"/>
                     <Button Content="Tìm kiếm" Click="SearchButton_Click" Background="Brown"/>
                     <ComboBox x:Name="CategoryFilter" Width="150" Background="Brown" VerticalAlignment="Center">
                         <ComboBoxItem Content="Tất cả"/>
                         <ComboBoxItem Content="Cafe"/>
                         <ComboBoxItem Content="Đồ uống khác"/>
                     </ComboBox>
-                    <Button Content="Tìm kiếm" Click="SearchButton_Click" Background="Brown"/>
                     <Button Content="Thêm" Click="AddButton_Click" Background="Brown"/>
                     <Button Content="Sửa" Click="EditButton_Click" Background="Brown"/>
                     <Button Content="Xóa" Click="DeleteButton_Click" Background="Brown"/>
@@ -31,8 +26,6 @@
                 <StackPanel Background="Black" HorizontalAlignment="Center" Padding="10,0,10,0">
                     <TextBlock Text="Hạn sử dụng" Foreground="White" Padding="0,0,0,10" VerticalAlignment="Center"/>
                 </StackPanel>
-
-                <!-- Date Pickers for Expiration Date Filtering -->
                 <StackPanel Orientation="Horizontal" Padding="20,10,0,20" Background="Black" HorizontalAlignment="Center">
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="Từ ngày" Foreground="White" Padding="0,0,0,10" VerticalAlignment="Center"/>
@@ -45,8 +38,8 @@
                 </StackPanel>
             </StackPanel>
 
-            <!-- ListView for displaying inventory as a table -->
-            <ListView x:Name="InventoryListView" HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="1" Background="WhiteSmoke" SelectionChanged="InventoryListView_SelectionChanged">
+            <ListView x:Name="InventoryListView" HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="1" Background="WhiteSmoke" 
+                      ItemsSource="{x:Bind ViewModel.FilteredMaterials, Mode=OneWay}" SelectionChanged="InventoryListView_SelectionChanged">
                 <ListView.Header>
                     <Grid Padding="20,0,20,0">
                         <Grid.ColumnDefinitions>
@@ -97,21 +90,19 @@
 
             <ContentDialog x:Name="AddEditDialog" Title="Thêm/Sửa Nguyên Liệu" PrimaryButtonText="OK" SecondaryButtonText="Cancel" PrimaryButtonClick="AddEditDialogPrimaryButtonClick">
                 <StackPanel>
-                    <TextBox x:Name="MaterialCodeTextBox" PlaceholderText="Mã nguyên liệu" />
-                    <TextBox x:Name="MaterialNameTextBox" PlaceholderText="Tên nguyên liệu" />
-                    <TextBox x:Name="QuantityTextBox" PlaceholderText="Số lượng" />
-                    <TextBox x:Name="CategoryTextBox" PlaceholderText="Phân loại" />
-                    <TextBox x:Name="UnitTextBox" PlaceholderText="Đơn vị tính" />
-                    <TextBox x:Name="UnitPriceTextBox" PlaceholderText="Đơn giá" />
-
-                    <!-- Phần nhập ngày nhập sẽ chỉ hiển thị khi thêm mới -->
-                    <DatePicker x:Name="ImportDatePicker" Visibility="Collapsed" />
+                    <TextBox x:Name="MaterialCodeTextBox" PlaceholderText="Mã nguyên liệu"/>
+                    <TextBox x:Name="MaterialNameTextBox" PlaceholderText="Tên nguyên liệu"/>
+                    <TextBox x:Name="QuantityTextBox" PlaceholderText="Số lượng"/>
+                    <TextBox x:Name="CategoryTextBox" PlaceholderText="Phân loại"/>
+                    <TextBox x:Name="UnitTextBox" PlaceholderText="Đơn vị tính"/>
+                    <TextBox x:Name="UnitPriceTextBox" PlaceholderText="Đơn giá"/>
+                    <DatePicker x:Name="ImportDatePicker" Visibility="Collapsed"/>
                     <DatePicker x:Name="ExpirationDatePicker"/>
                 </StackPanel>
             </ContentDialog>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,0,0,10">
-                <Button Content="Trang trước" Click="PreviousPageButton_Click" Margin="5" Foreground="Black" Background="AntiqueWhite" />
+                <Button Content="Trang trước" Click="PreviousPageButton_Click" Margin="5" Foreground="Black" Background="AntiqueWhite"/>
                 <TextBlock x:Name="PageInfoTextBlock" Text="Trang 1" VerticalAlignment="Center" Margin="10,0" Foreground="Black"/>
                 <Button Content="Trang tiếp theo" Click="NextPageButton_Click" Margin="5" Foreground="Black" Background="AntiqueWhite"/>
             </StackPanel>
