@@ -222,30 +222,18 @@ public class MockDao : IDao
         }
         return false;
     }
-    public async Task<RevenueData> GetRevenueData(DateTime selectedDate, DateTime previousDate)
-    {
-        // Giả lập dữ liệu doanh thu
-        await Task.Delay(100); // Giả lập một thao tác không đồng bộ
 
-        return new RevenueData
+    public async Task<Revenue> GetRevenue(DateTime selectedDate, DateTime previousDate)
+    {
+        await Task.Delay(10);
+
+        return new Revenue
         {
-            OrderCount = 10,
-            TotalRevenue = 500000,
-            CashAmount = 300000
+            OrderCount = 81,
+            TotalRevenue = 3551000,
+            CashAmount = 2412000
         };
     }
-
-    public async Task<RevenueData> GetYesterdayRevenue(DateTime previousDate)
-    {
-        await Task.Delay(100);
-
-        return new RevenueData
-        {
-            TotalRevenue = 450000
-        };
-    }
-
-
 
     public async Task<List<TopProduct>> GetTopProducts(DateTime selectedDate)
     {
@@ -253,12 +241,14 @@ public class MockDao : IDao
 
         return new List<TopProduct>
         {
-            new TopProduct { Name = "Cà phê", Revenue = 200000 },
-            new TopProduct { Name = "Trà sữa", Revenue = 150000 },
-            new TopProduct { Name = "Nước ngọt", Revenue = 100000 },
-            new TopProduct { Name = "Sinh tố", Revenue = 50000 },
-            new TopProduct { Name = "Trà", Revenue = 30000 },
+            new() { ImageUrl = "/Assets/milk_tea.jpg", Name = "Milk tea", Revenue = 720000 },
+            new() { ImageUrl = "/Assets/latte.jpg", Name = "Latte", Revenue = 675000 },
+            new() { ImageUrl = "/Assets/oolong_tea.jpg", Name = "Oolong tea", Revenue = 630000 },
+            new() { ImageUrl = "/Assets/black_coffee.jpg", Name = "Black coffee", Revenue = 518000 },
+            new() { ImageUrl = "/Assets/espresso.jpg", Name = "Espresso", Revenue = 360000 },
+            new() { ImageUrl = "/Assets/orange_juice.jpg", Name = "Orange juice", Revenue = 297000 },
         };
+
     }
 
     public async Task<List<TopCategory>> GetTopCategories(DateTime selectedDate)
@@ -267,11 +257,10 @@ public class MockDao : IDao
 
         return new List<TopCategory>
         {
-            new TopCategory { Name = "Nước uống", Revenue = 300000 },
-            new TopCategory { Name = "Đồ ăn nhẹ", Revenue = 200000 },
-            new TopCategory { Name = "Trà", Revenue = 100000 },
-            new TopCategory { Name = "Cà phê", Revenue = 50000 },
-            new TopCategory { Name = "Sinh tố", Revenue = 30000 },
+            new() { ImageUrl = "/Assets/coffee.jpg", Name = "Coffee", Revenue = 300000 },
+            new() { ImageUrl = "/Assets/tea.jpg", Name = "Tea", Revenue = 200000 },
+            new() { ImageUrl = "/Assets/juice.jpg", Name = "Juice", Revenue = 100000 },
+            new() { ImageUrl = "/Assets/smoothie.jpg", Name = "Smoothie", Revenue = 50000 },
         };
     }
 
@@ -281,29 +270,15 @@ public class MockDao : IDao
 
         return new List<TopSeller>
         {
-            new TopSeller { Name = "Trà sữa", Amount = 10 },
-            new TopSeller { Name = "Cà phê", Amount = 7 },
-            new TopSeller { Name = "Trà", Amount = 5 },
-            new TopSeller { Name = "Đồ ăn nhẹ", Amount = 4 },
-            new TopSeller { Name = "Sinh tố", Amount = 1 },
+            new() { ImageUrl = "/Assets/milk_tea.jpg", Name = "Milk tea", Amount = 24 },
+            new() { ImageUrl = "/Assets/oolong_tea.jpg", Name = "Oolong tea", Amount = 18 },
+            new() { ImageUrl = "/Assets/latte.jpg", Name = "Latte", Amount = 15 },
+            new() { ImageUrl = "/Assets/black_coffee.jpg", Name = "Black coffee", Amount = 14 },
+            new() { ImageUrl = "/Assets/orange_juice.jpg", Name = "Orange juice", Amount = 11 },
+            new() { ImageUrl = "/Assets/espresso.jpg", Name = "Espresso", Amount = 8 },
         };
     }
 
-    public class RevenueData
-    {
-        public int OrderCount
-        {
-            get; set;
-        }
-        public int TotalRevenue
-        {
-            get; set;
-        }
-        public int CashAmount
-        {
-            get; set;
-        }
-    }
     private List<Material> mockMaterials;
     private List<User> mockUsers;
         
