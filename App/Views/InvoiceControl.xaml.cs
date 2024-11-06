@@ -50,6 +50,7 @@ public sealed partial class InvoiceControl : UserControl
                     Content = "Vui lòng chọn phương thức thanh toán.",
                     CloseButtonText = "OK"
                 };
+                errorDialog.XamlRoot = this.XamlRoot;
                 await errorDialog.ShowAsync();
                 return;
             }
@@ -138,20 +139,14 @@ public sealed partial class InvoiceControl : UserControl
     }
     private void QuantityTextBox_BeforeTextChanging(TextBox sender, TextBoxBeforeTextChangingEventArgs args)
     {
+        // Không cho phép thay đổi nếu IsPaid là true
+        if (ViewModel.IsPaid)
+        {
+            args.Cancel = true;
+            return;
+        }
         // Chỉ cho phép ký tự số
         args.Cancel = args.NewText.Any(c => !char.IsDigit(c));
     }
-    //public void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
-    //{
-    //    if (e.PropertyName == nameof(InvoiceControlViewModel.IsPaid))
-    //    {
-    //        // Vô hiệu hóa TextBox nếu IsPaid là true
-    //        var viewModel = sender as InvoiceControlViewModel;
-    //        if (viewModel != null)
-    //        {
-    //            QuantityTextBox.IsEnabled = !viewModel.IsPaid;
-    //        }
-    //    }
-    //}
 
 }

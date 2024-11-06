@@ -69,7 +69,7 @@ public sealed partial class CategoryControl : UserControl
                         {
                             // Tìm InvoiceControl tương ứng
                             var invoiceControl = selectedTab.Content as InvoiceControl;
-                            if (invoiceControl != null)
+                            if (invoiceControl != null && invoiceControl.ViewModel.IsPaid==false)
                             {
                                 // Thêm sản phẩm vào hóa đơn
                                 invoiceControl.ViewModel.AddInvoiceItem(invoiceItem);
