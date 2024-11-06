@@ -99,11 +99,15 @@ public class InvoiceControlViewModel : INotifyPropertyChanged
         {
             int orderId = await dao.CreateOrder(Invoice);
 
-            foreach (var item in Invoice.InvoiceItems)
+            // Tạo một bản sao của collection để tránh lỗi
+            var invoiceItemsCopy = Invoice.InvoiceItems.ToList();
+
+            foreach (var item in invoiceItemsCopy)
             {
                 await dao.AddOrderDetail(orderId, item);
             }
-            //Dừng tăng thời gian
+
+            // Dừng tăng thời gian
             _timer.Stop();
             CurrentDateTime = Invoice.CreatedTime;
             IsPaid = true;

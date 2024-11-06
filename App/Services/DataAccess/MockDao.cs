@@ -203,7 +203,7 @@ public class MockDao : IDao
         var invoice = _pendingOrders.FirstOrDefault(o => o.InvoiceNumber == orderId);
         if (invoice != null)
         {
-            // Mô phỏng thêm sản phẩm vào hóa đơn
+            invoice.AddItem(item);
         }
         await Task.Delay(50);
     }

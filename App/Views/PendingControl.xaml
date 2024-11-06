@@ -12,20 +12,16 @@
     mc:Ignorable="d">
     <UserControl.Resources>
         <converters:DateTimeConverter x:Key="DateTimeConverter"/>
+        <converters:IntToVnCurrencyConverter x:Key="IntToVnCurrencyConverter"/>
     </UserControl.Resources>
-    <Grid Padding="20">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
+    <StackPanel Padding="20">
         <TextBlock Text="Phòng chờ"
                    FontSize="24"
                    FontWeight="Bold"
                    Margin="0,0,0,20"
                    Foreground="{StaticResource PrimaryColor}"/>
 
-        <ListView Grid.Row="1" x:Name="PendingOrdersListView"
+        <ListView x:Name="PendingOrdersListView"
                       ItemsSource="{x:Bind ViewModel.PendingInvoices, Mode=OneWay}"
                       SelectionMode="None"
                       Background="Transparent"
@@ -43,55 +39,95 @@
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
                             <!-- Thông tin đơn hàng -->
-                            <StackPanel>
-                                <TextBlock Text="Mã đơn hàng"
-                                               FontSize="14"
-                                               Foreground="Gray"/>
-                                <TextBlock Text="{x:Bind InvoiceNumber}"
-                                               FontSize="20"
-                                               FontWeight="SemiBold"
-                                               Foreground="{StaticResource TextBoxForegroundThemeBrush}"/>
+                            <Grid Margin="2" Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                </Grid.ColumnDefinitions>
 
-                                <!--<TextBlock Text="Số bàn"
-                                               FontSize="14"
-                                               Foreground="Gray"
-                                               Margin="0,5,0,0"/>
-                                <TextBlock Text="{x:Bind TableNumber}"
-                                               FontSize="20"
-                                               FontWeight="SemiBold"
-                                               Foreground="{StaticResource TextBoxForegroundThemeBrush}"/>-->
+                                <TextBlock Text="Mã đơn hàng:" FontSize="14" Foreground="Gray" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0"/>
+                                <TextBlock Text="{x:Bind InvoiceNumber}" FontSize="20" FontWeight="SemiBold" Grid.Column="1" Grid.Row="0"/>
 
-                                <TextBlock Text="Thời gian tạo"
-                                               FontSize="14"
-                                               Foreground="Gray"
-                                               Margin="0,5,0,0"/>
-                                <TextBlock Text="{x:Bind CreatedTime, Converter={StaticResource DateTimeConverter}}"
-                                               FontSize="16"
-                                               FontWeight="Medium"
-                                               Foreground="{StaticResource TextBoxForegroundThemeBrush}"/>
+                                <TextBlock Text="Thời gian tạo:" FontSize="14" Foreground="Gray" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1" Margin="0,5,0,0"/>
+                                <TextBlock Text="{x:Bind CreatedTime, Converter={StaticResource DateTimeConverter}}" FontSize="16" FontWeight="Medium" Grid.Column="1" Grid.Row="1" Margin="0,5,0,0"/>
 
-                                <TextBlock Text="Phương thức thanh toán"
-                                               FontSize="14"
-                                               Foreground="Gray"
-                                               Margin="0,5,0,0"/>
-                                <TextBlock Text="{x:Bind PaymentMethod}"
-                                               FontSize="16"
-                                               Foreground="{StaticResource TextBoxForegroundThemeBrush}"/>
+                                <TextBlock Text="Thời gian hoàn thành:" FontSize="14" Foreground="Gray" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2" Margin="0,5,0,0"/>
+                                <TextBlock Text="{x:Bind CompleteTime, Converter={StaticResource DateTimeConverter}, FallbackValue='Chưa hoàn thành'}" FontSize="16" Grid.Column="1" Grid.Row="2" Margin="0,5,0,0"/>
+
+                                <TextBlock Text="Phương thức thanh toán:" FontSize="14" Foreground="Gray" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3" Margin="0,5,0,0"/>
+                                <TextBlock Text="{x:Bind PaymentMethod, FallbackValue='Chưa thanh toán'}" FontSize="16" Grid.Column="1" Grid.Row="3" Margin="0,5,0,0"/>
+
+                                <TextBlock Text="Tổng số lượng:" FontSize="14" Foreground="Gray" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4" Margin="0,5,0,0"/>
+                                <TextBlock Text="{x:Bind TotalQuantity}" FontSize="16" Grid.Column="1" Grid.Row="4" Margin="0,5,0,0"/>
+
+                                <TextBlock Text="Tổng tiền:" FontSize="14" Foreground="Gray" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5" Margin="0,5,0,0"/>
+                                <TextBlock Text="{x:Bind TotalPrice, Converter={StaticResource IntToVnCurrencyConverter}}" FontSize="16" Grid.Column="1" Grid.Row="5" Margin="0,5,0,0"/>
+                            </Grid>
+
+                            <!-- Danh sách sản phẩm -->
+                            <StackPanel Grid.Column="1" Margin="0,10,0,0">
+                                <ScrollViewer>
+                                    <ListView ItemsSource="{x:Bind InvoiceItems}" Margin="0,5,0,0">
+                                        <ListView.Header>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="3*"/>
+                                                    <ColumnDefinition Width="1*"/>
+                                                    <ColumnDefinition Width="1*"/>
+                                                    <ColumnDefinition Width="1*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <TextBlock Text="Tên sản phẩm" FontWeight="Bold" FontSize="14" Grid.Column="0" Margin="8,0,0,0"/>
+                                                <TextBlock Text="Số lượng" FontWeight="Bold" FontSize="14" Grid.Column="1" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="Đơn giá" FontWeight="Bold" FontSize="14" Grid.Column="2" HorizontalAlignment="Center"/>
+                                                <TextBlock Text="Thành tiền" FontWeight="Bold" FontSize="14" Grid.Column="3" HorizontalAlignment="Center"/>
+                                            </Grid>
+                                        </ListView.Header>
+
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate x:DataType="model:InvoiceItem">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="3*"/>
+                                                        <ColumnDefinition Width="1*"/>
+                                                        <ColumnDefinition Width="1*"/>
+                                                        <ColumnDefinition Width="1*"/>
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <TextBlock Grid.Column="0" Text="{x:Bind Name}" FontSize="16" Margin="3,0,0,0"/>
+                                                    <TextBlock Grid.Column="1" Text="{x:Bind Quantity}" FontSize="16" HorizontalAlignment="Center"/>
+                                                    <TextBlock Grid.Column="2" Text="{x:Bind Price, Converter={StaticResource IntToVnCurrencyConverter}}" FontSize="16" HorizontalAlignment="Center"/>
+                                                    <TextBlock Grid.Column="3" Text="{x:Bind Total, Converter={StaticResource IntToVnCurrencyConverter}}" FontSize="16" HorizontalAlignment="Center"/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </ScrollViewer>
                             </StackPanel>
 
                             <!-- Nút hoàn tất -->
                             <Button Content="Hoàn tất"
-                                        Grid.Column="1"
-                                        Width="100"
+                                        Grid.Column="2"
+                                        Width="80"
                                         Height="40"
                                         Background="{StaticResource PrimaryColor}"
                                         Foreground="White"
                                         CornerRadius="20"
                                         FontWeight="Bold"
+                                        FontSize="13"
                                         VerticalAlignment="Center"
                                         Click="CompleteOrderButton_Click"
                                         Style="{StaticResource ButtonRevealStyle}"/>
@@ -100,7 +136,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-    </Grid>
+    </StackPanel>
 </UserControl>
 <!--<Grid Padding="10" Margin="0,0,0,10" Background="White" CornerRadius="8">
                         <Grid.ColumnDefinitions>
