@@ -79,7 +79,7 @@ public class Invoice : INotifyPropertyChanged
     public int TotalQuantity => InvoiceItems.Sum(item => item.Quantity);
 
     // Phương thức để tính tổng giá
-    public decimal TotalPrice => InvoiceItems.Sum(item => item.Total);
+    public int TotalPrice => InvoiceItems.Sum(item => item.Total);
 
     // Phương thức để thêm sản phẩm vào hóa đơn
     public void AddItem(InvoiceItem item)

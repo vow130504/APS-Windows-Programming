@@ -75,8 +75,8 @@
                                              Style="{StaticResource TextBox}" 
                                              IsEnabled="{Binding DataContext.IsPaid, ElementName=RootUserControl, Mode=TwoWay, Converter={StaticResource InverseBoolean}}" 
                                              BeforeTextChanging="QuantityTextBox_BeforeTextChanging" />
-                                    <TextBlock Text="{x:Bind Price, Mode=OneWay}" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1" Foreground="Black"/>
-                                    <TextBlock Text="{x:Bind Total, Mode=OneWay}" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1" Foreground="Black"/>
+                                    <TextBlock Text="{x:Bind Price, Mode=OneWay, Converter={StaticResource IntToVnCurrencyConverter}}" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1" Foreground="Black"/>
+                                    <TextBlock Text="{x:Bind Total, Mode=OneWay, Converter={StaticResource IntToVnCurrencyConverter}}" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1" Foreground="Black"/>
                                     <!-- Nút xóa mục -->
                                     <Button Grid.Column="4" Margin="2" Foreground="Red" Background="Transparent" Click="DeleteButton_Click">
                                         <FontIcon Glyph="&#xE74D;" FontSize="12"/>
@@ -98,7 +98,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Tổng tiền: " FontWeight="Bold"  Margin="0,0,5,0" Foreground="{StaticResource SecondaryColor}"/>
-                <TextBlock Text="{x:Bind ViewModel.TotalPrice, Mode=OneWay}" FontWeight="Bold" Foreground="Black"/>
+                <TextBlock Text="{x:Bind ViewModel.TotalPrice, Mode=OneWay, Converter={StaticResource IntToVnCurrencyConverter}}" FontWeight="Bold" Foreground="Black"/>
             </StackPanel>
             <TextBlock
                     Visibility="{x:Bind ViewModel.IsPaid, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"

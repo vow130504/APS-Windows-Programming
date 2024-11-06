@@ -29,7 +29,7 @@ public class InvoiceControlViewModel : INotifyPropertyChanged
     public Invoice Invoice { get; set; }
 
     public int TotalQuantity => Invoice.TotalQuantity;
-    public decimal TotalPrice => Invoice.TotalPrice;
+    public int TotalPrice => Invoice.TotalPrice;
     public bool IsPaid
     {
         get => _isPaid;

@@ -42,7 +42,7 @@ public class InvoiceItem : INotifyPropertyChanged
         get; set;
     }
 
-    public decimal Total => Price * Quantity;
+    public int Total => Price * Quantity;
 
     public event PropertyChangedEventHandler PropertyChanged;
 

@@ -48,7 +48,7 @@ public sealed partial class SalePage : Page
         // Tạo Tab mới cho hóa đơn
         TabViewItem newTab = new TabViewItem
         {
-            Header = $"Hóa đơn {index}",
+            Header = $"Hóa đơn",
             Content = new InvoiceControl(),
             Background = (SolidColorBrush)Application.Current.Resources["TabViewItemHeaderBackground"],
             Foreground = (SolidColorBrush)Application.Current.Resources["TabViewItemHeaderForeground"]

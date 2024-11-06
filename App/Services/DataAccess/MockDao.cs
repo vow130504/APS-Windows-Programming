@@ -257,10 +257,10 @@ public class MockDao : IDao
 
         return new List<TopCategory>
         {
-            new() { ImageUrl = "/Assets/coffee.jpg", Name = "Coffee", Revenue = 300000 },
-            new() { ImageUrl = "/Assets/tea.jpg", Name = "Tea", Revenue = 200000 },
-            new() { ImageUrl = "/Assets/juice.jpg", Name = "Juice", Revenue = 100000 },
-            new() { ImageUrl = "/Assets/smoothie.jpg", Name = "Smoothie", Revenue = 50000 },
+            new() { ImageUrl = "/Assets/coffee.jpg", Name = "Coffee", Revenue = 878000 },
+            new() { ImageUrl = "/Assets/tea.jpg", Name = "Tea", Revenue = 1350000 },
+            new() { ImageUrl = "/Assets/juice.jpg", Name = "Juice", Revenue = 400000 },
+            new() { ImageUrl = "/Assets/smoothie.jpg", Name = "Smoothie", Revenue = 120000 },
         };
     }
 
