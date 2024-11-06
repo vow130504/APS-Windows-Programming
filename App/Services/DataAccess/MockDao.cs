@@ -190,7 +190,7 @@ public class MockDao : IDao
 
     public async Task<int> CreateOrder(Invoice invoice)
     {
-        var newOrderId = _pendingOrders.Count + 1;
+        var newOrderId = _pendingOrders.Any() ? _pendingOrders.Max(order => order.InvoiceNumber) + 1 : 1;
         invoice.InvoiceNumber = newOrderId;
         invoice.CreatedTime = DateTime.Now;
         _pendingOrders.Add(invoice);
