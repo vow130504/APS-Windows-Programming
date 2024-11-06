@@ -4,6 +4,8 @@ using Microsoft.UI.Xaml.Controls;
 using App.Model;
 using System;
 using System.Linq;
+using ClosedXML.Excel; // Thêm thư viện này vào file
+using System.IO;
 
 namespace App.Views
 {
@@ -161,11 +163,79 @@ namespace App.Views
             }
         }
 
-
-        private void ExportExcelButton_Click(object sender, RoutedEventArgs e)
+        private async void ExportExcelButton_Click(object sender, RoutedEventArgs e)
         {
-            // Logic for exporting to Excel
+            try
+            {
+                await Task.Run(() =>
+                {
+                    // Đặt đường dẫn lưu file Excel trong thư mục Documents
+                    string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "InventoryData.xlsx");
+
+                    // Tạo workbook và worksheet
+                    using (var workbook = new XLWorkbook())
+                    {
+                        var worksheet = workbook.Worksheets.Add("Inventory");
+
+                        // Tạo tiêu đề cột
+                        worksheet.Cell(1, 1).Value = "Mã nguyên liệu";
+                        worksheet.Cell(1, 2).Value = "Tên nguyên liệu";
+                        worksheet.Cell(1, 3).Value = "Số lượng";
+                        worksheet.Cell(1, 4).Value = "Phân loại";
+                        worksheet.Cell(1, 5).Value = "Đơn vị tính";
+                        worksheet.Cell(1, 6).Value = "Đơn giá";
+                        worksheet.Cell(1, 7).Value = "Ngày nhập";
+                        worksheet.Cell(1, 8).Value = "Hạn sử dụng";
+
+                        // Ghi dữ liệu từ FilteredMaterials vào worksheet
+                        int row = 2;
+                        foreach (var material in ViewModel.FilteredMaterials)
+                        {
+                            worksheet.Cell(row, 1).Value = material.MaterialCode;
+                            worksheet.Cell(row, 2).Value = material.MaterialName;
+                            worksheet.Cell(row, 3).Value = material.Quantity;
+                            worksheet.Cell(row, 4).Value = material.Category;
+                            worksheet.Cell(row, 5).Value = material.Unit;
+                            worksheet.Cell(row, 6).Value = material.UnitPrice;
+                            worksheet.Cell(row, 7).Value = material.ImportDate.ToString("dd/MM/yyyy");
+                            worksheet.Cell(row, 8).Value = material.ExpirationDate.ToString("dd/MM/yyyy");
+                            row++;
+                        }
+
+                        // Định dạng bảng
+                        var range = worksheet.RangeUsed();
+                        range.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                        range.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                        range.Style.Font.Bold = false;
+
+                        // Lưu workbook ra file Excel
+                        workbook.SaveAs(filePath);
+                    }
+                });
+
+                // Hiển thị thông báo thành công trên luồng giao diện chính
+                var dialog = new ContentDialog
+                {
+                    Title = "Xuất Excel thành công",
+                    Content = $"File Excel đã được lưu tại {Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}",
+                    CloseButtonText = "Đóng"
+                };
+                await dialog.ShowAsync();
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi và hiển thị hộp thoại lỗi
+                var errorDialog = new ContentDialog
+                {
+                    Title = "Lỗi xuất file Excel",
+                    Content = $"Đã xảy ra lỗi khi xuất file Excel: {ex.Message}",
+                    CloseButtonText = "Đóng"
+                };
+                await errorDialog.ShowAsync();
+            }
         }
+
+
 
         private void InventoryListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
