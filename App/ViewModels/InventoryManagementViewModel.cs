@@ -44,12 +44,13 @@ namespace App.ViewModels
         public void UpdateCurrentPage()
         {
             FilteredMaterials.Clear();
-            var items = AllMaterials.Skip(currentPage * itemsPerPage).Take(itemsPerPage).ToList();
+            var items = AllMaterials.Skip(CurrentPage * itemsPerPage).Take(itemsPerPage).ToList();
             foreach (var item in items)
             {
                 FilteredMaterials.Add(item);
             }
         }
+
 
         public int TotalPages()
         {
