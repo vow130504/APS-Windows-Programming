@@ -31,8 +31,20 @@
             <!-- Giao diện "Sign In" -->
             <StackPanel x:Name="SignInPanel" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Orientation="Vertical" VerticalAlignment="Center" Padding="20" Spacing="10">
                 <TextBlock Text="Đăng nhập" FontSize="25" FontWeight="Bold" Foreground="White" Margin="0,0,0,10" HorizontalAlignment="Center"/>
-                <TextBox Foreground="Black" Header="Tên người dùng:" Name="usernameTextBox" Width="250" Padding="10" FontSize="15" Margin="0,0,0,10"/>
-                <PasswordBox Foreground="Black" Header="Mật khẩu:" Name="passwordBox" Width="250" Padding="10" FontSize="15" Margin="0,0,0,10"/>
+                <TextBox Foreground="Black" Name="usernameTextBox" Width="250" Padding="10" FontSize="15" Margin="0,0,0,10">
+                    <TextBox.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="Tên người dùng:" Foreground="White"/>
+                        </DataTemplate>
+                    </TextBox.HeaderTemplate>
+                </TextBox>
+                <PasswordBox Foreground="Black" Name="passwordBox" Width="250" Padding="10" FontSize="15" Margin="0,0,0,10">
+                    <PasswordBox.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="Mật khẩu:" Foreground="White"/>
+                        </DataTemplate>
+                    </PasswordBox.HeaderTemplate>
+                </PasswordBox>
                 <CheckBox Name="rememberCheckBox" Foreground="White" Content="Ghi nhớ" FontSize="14"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="20">
                     <Button x:Name="loginButton" Content="Đăng nhập" Width="110" FontSize="15" Padding="10" Background="RoyalBlue" Foreground="White" Click="Login_Click"/>
@@ -43,9 +55,27 @@
             <!-- Giao diện "Sign Up" -->
             <StackPanel x:Name="SignUpPanel" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Orientation="Vertical" VerticalAlignment="Center" Padding="5" Spacing="5" Visibility="Collapsed">
                 <TextBlock Text="Đăng ký" FontSize="25" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center"/>
-                <TextBox Foreground="Black" Header="Tên người dùng:" Name="signupUsernameTextBox" Width="250" Padding="10" FontSize="15" Margin="0,0,0,10"/>
-                <PasswordBox Foreground="Black" Header="Mật khẩu:" Name="signupPasswordBox" Width="250" Padding="10" FontSize="15" Margin="0,0,0,10"/>
-                <PasswordBox Foreground="Black" Header="Nhập lại mật khẩu:" Name="confirmPasswordBox" Width="250" Padding="10" FontSize="15" Margin="0,0,0,10"/>
+                <TextBox Foreground="Black" Name="signupUsernameTextBox" Width="250" Padding="10" FontSize="15" Margin="0,0,0,10">
+                    <TextBox.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="Tên người dùng:" Foreground="White"/>
+                        </DataTemplate>
+                    </TextBox.HeaderTemplate>
+                </TextBox>
+                <PasswordBox Foreground="Black" Name="signupPasswordBox" Width="250" Padding="10" FontSize="15" Margin="0,0,0,10">
+                    <PasswordBox.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="Mật khẩu:" Foreground="White"/>
+                        </DataTemplate>
+                    </PasswordBox.HeaderTemplate>
+                </PasswordBox>
+                <PasswordBox Foreground="Black" Name="confirmPasswordBox" Width="250" Padding="10" FontSize="15" Margin="0,0,0,10">
+                    <PasswordBox.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="Nhập lại mật khẩu:" Foreground="White"/>
+                        </DataTemplate>
+                    </PasswordBox.HeaderTemplate>
+                </PasswordBox>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="20">
                     <Button x:Name="signupButton" Content="Đăng ký" Width="110" FontSize="15" Padding="10" Background="RoyalBlue" Foreground="White" Click="Signup_Click"/>
                     <Button x:Name="switchToSignInButton" Content="Quay lại" Width="110" FontSize="15" Padding="10" Background="Gray" Foreground="White" Click="SwitchToSignIn"/>
