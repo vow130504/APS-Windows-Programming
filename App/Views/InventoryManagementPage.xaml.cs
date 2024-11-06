@@ -167,71 +167,83 @@ namespace App.Views
         {
             try
             {
+                System.Diagnostics.Debug.WriteLine("Bắt đầu xuất file Excel...");
+
                 await Task.Run(() =>
                 {
-                    // Đặt đường dẫn lưu file Excel trong thư mục Documents
-                    string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "InventoryData.xlsx");
-
-                    // Tạo workbook và worksheet
-                    using (var workbook = new XLWorkbook())
+                    try
                     {
-                        var worksheet = workbook.Worksheets.Add("Inventory");
+                        string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "InventoryData.xlsx");
 
-                        // Tạo tiêu đề cột
-                        worksheet.Cell(1, 1).Value = "Mã nguyên liệu";
-                        worksheet.Cell(1, 2).Value = "Tên nguyên liệu";
-                        worksheet.Cell(1, 3).Value = "Số lượng";
-                        worksheet.Cell(1, 4).Value = "Phân loại";
-                        worksheet.Cell(1, 5).Value = "Đơn vị tính";
-                        worksheet.Cell(1, 6).Value = "Đơn giá";
-                        worksheet.Cell(1, 7).Value = "Ngày nhập";
-                        worksheet.Cell(1, 8).Value = "Hạn sử dụng";
-
-                        // Ghi dữ liệu từ FilteredMaterials vào worksheet
-                        int row = 2;
-                        foreach (var material in ViewModel.FilteredMaterials)
+                        using (var workbook = new XLWorkbook())
                         {
-                            worksheet.Cell(row, 1).Value = material.MaterialCode;
-                            worksheet.Cell(row, 2).Value = material.MaterialName;
-                            worksheet.Cell(row, 3).Value = material.Quantity;
-                            worksheet.Cell(row, 4).Value = material.Category;
-                            worksheet.Cell(row, 5).Value = material.Unit;
-                            worksheet.Cell(row, 6).Value = material.UnitPrice;
-                            worksheet.Cell(row, 7).Value = material.ImportDate.ToString("dd/MM/yyyy");
-                            worksheet.Cell(row, 8).Value = material.ExpirationDate.ToString("dd/MM/yyyy");
-                            row++;
+                            var worksheet = workbook.Worksheets.Add("Inventory");
+
+                            // Tạo tiêu đề cột
+                            worksheet.Cell(1, 1).Value = "Mã nguyên liệu";
+                            worksheet.Cell(1, 2).Value = "Tên nguyên liệu";
+                            worksheet.Cell(1, 3).Value = "Số lượng";
+                            worksheet.Cell(1, 4).Value = "Phân loại";
+                            worksheet.Cell(1, 5).Value = "Đơn vị tính";
+                            worksheet.Cell(1, 6).Value = "Đơn giá";
+                            worksheet.Cell(1, 7).Value = "Ngày nhập";
+                            worksheet.Cell(1, 8).Value = "Hạn sử dụng";
+
+                            int row = 2;
+                            foreach (var material in ViewModel.FilteredMaterials)
+                            {
+                                worksheet.Cell(row, 1).Value = material.MaterialCode;
+                                worksheet.Cell(row, 2).Value = material.MaterialName;
+                                worksheet.Cell(row, 3).Value = material.Quantity;
+                                worksheet.Cell(row, 4).Value = material.Category;
+                                worksheet.Cell(row, 5).Value = material.Unit;
+                                worksheet.Cell(row, 6).Value = material.UnitPrice;
+                                worksheet.Cell(row, 7).Value = material.ImportDate.ToString("dd/MM/yyyy");
+                                worksheet.Cell(row, 8).Value = material.ExpirationDate.ToString("dd/MM/yyyy");
+                                row++;
+                            }
+
+                            var range = worksheet.RangeUsed();
+                            range.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                            range.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                            range.Style.Font.Bold = false;
+
+                            workbook.SaveAs(filePath);
                         }
 
-                        // Định dạng bảng
-                        var range = worksheet.RangeUsed();
-                        range.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
-                        range.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
-                        range.Style.Font.Bold = false;
-
-                        // Lưu workbook ra file Excel
-                        workbook.SaveAs(filePath);
+                        System.Diagnostics.Debug.WriteLine("Xuất file Excel thành công.");
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Lỗi khi ghi file: {ex.Message}");
+                        throw; // Ném lại ngoại lệ để xử lý bên ngoài
                     }
                 });
 
-                // Hiển thị thông báo thành công trên luồng giao diện chính
-                var dialog = new ContentDialog
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
                 {
-                    Title = "Xuất Excel thành công",
-                    Content = $"File Excel đã được lưu tại {Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}",
-                    CloseButtonText = "Đóng"
-                };
-                await dialog.ShowAsync();
+                    var dialog = new ContentDialog
+                    {
+                        Title = "Xuất Excel thành công",
+                        Content = $"File Excel đã được lưu tại {Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}",
+                        CloseButtonText = "Đóng"
+                    };
+                    await dialog.ShowAsync();
+                });
             }
             catch (Exception ex)
             {
-                // Xử lý lỗi và hiển thị hộp thoại lỗi
-                var errorDialog = new ContentDialog
+                System.Diagnostics.Debug.WriteLine($"Lỗi không mong muốn: {ex.Message}");
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
                 {
-                    Title = "Lỗi xuất file Excel",
-                    Content = $"Đã xảy ra lỗi khi xuất file Excel: {ex.Message}",
-                    CloseButtonText = "Đóng"
-                };
-                await errorDialog.ShowAsync();
+                    var errorDialog = new ContentDialog
+                    {
+                        Title = "Lỗi xuất file Excel",
+                        Content = $"Đã xảy ra lỗi khi xuất file Excel: {ex.Message}",
+                        CloseButtonText = "Đóng"
+                    };
+                    await errorDialog.ShowAsync();
+                });
             }
         }
 
