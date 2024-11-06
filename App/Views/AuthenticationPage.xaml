@@ -11,7 +11,7 @@
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#222222">
         <!-- Hình ảnh đầu trang -->
-        <Image Source="/Assets/Header-Login-Page02.png" Stretch="Fill" Height="200" Margin="0,0,0,0"/>
+        <Image Source="/Assets/Header-Login-Page02.png" HorizontalAlignment="Stretch" Stretch="Fill" Height="200" Margin="0,0,0,0"/>
 
         <Grid>
             <Grid.RowDefinitions>

@@ -15,8 +15,8 @@
         <vm:CategoryViewModel />
     </UserControl.DataContext>
 
-    <StackPanel Grid.Column="0">
-        <Pivot ItemsSource="{x:Bind ViewModel.ListTypeBeverages, Mode=OneWay}" >
+    <Grid Height="auto">
+        <Pivot ItemsSource="{x:Bind ViewModel.ListTypeBeverages, Mode=OneWay}">
             <Pivot.HeaderTemplate>
                 <DataTemplate x:DataType="model:Category">
                     <TextBlock Text="{x:Bind Name}" FontSize="14" />
@@ -25,33 +25,34 @@
             <Pivot.ItemTemplate>
                 <DataTemplate x:DataType="model:Category">
                     <PivotItem>
-                        <GridView Padding="20,60,20,0" ItemsSource="{x:Bind Products}" IsItemClickEnabled="True" ItemClick="GridView_ItemClick" Height="670">
-                            <GridView.ItemTemplate>
-                                <DataTemplate x:DataType="model:Product">
-                                    <Grid>
-                                        <Grid.Shadow>
-                                            <ThemeShadow />
-                                        </Grid.Shadow>
-                                        <Border BorderBrush="{ThemeResource SystemControlForegroundBaseLowBrush}"
-                                                BorderThickness="1"
-                                                CornerRadius="5"
-                                                Padding="16"
-                                                Background="#ffff" MinWidth="150">
-                                            <StackPanel>
-                                                <Image Source="{x:Bind Image}" Height="120" Width="120" />
-                                                <TextBlock Text="{x:Bind Name}" FontWeight="Bold" Foreground="Black" Margin="10,0,0,0"/>
-                                                
-                                            </StackPanel>
-                                        </Border>
-                                    </Grid>
-                                </DataTemplate>
-                            </GridView.ItemTemplate>
-                        </GridView>
+                        <ScrollViewer VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Auto">
+                            <GridView Padding="20,60,20,0" ItemsSource="{x:Bind Products}" IsItemClickEnabled="True" ItemClick="GridView_ItemClick" Height="660">
+                                <GridView.ItemTemplate>
+                                    <DataTemplate x:DataType="model:Product">
+                                        <Grid>
+                                            <Grid.Shadow>
+                                                <ThemeShadow />
+                                            </Grid.Shadow>
+                                            <Border BorderBrush="{ThemeResource SystemControlForegroundBaseLowBrush}"
+                                                    BorderThickness="1"
+                                                    CornerRadius="5"
+                                                    Padding="16"
+                                                    Background="#ffff" MinWidth="150">
+                                                <StackPanel>
+                                                    <Image Source="{x:Bind Image}" Height="120" Width="120" />
+                                                    <TextBlock Text="{x:Bind Name}" FontWeight="Bold" Foreground="Black" Margin="10,0,0,0"/>
+                                                </StackPanel>
+                                            </Border>
+                                        </Grid>
+                                    </DataTemplate>
+                                </GridView.ItemTemplate>
+                            </GridView>
+                        </ScrollViewer>
                     </PivotItem>
                 </DataTemplate>
             </Pivot.ItemTemplate>
         </Pivot>
-    </StackPanel>
+    </Grid>
 </UserControl>
 
 <!--<Grid>

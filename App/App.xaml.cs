@@ -9,7 +9,10 @@ using App.Views;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.UI;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Windowing;
+using Windows.UI;
 
 namespace App;
 
@@ -97,4 +100,5 @@ public partial class App : Application
         base.OnLaunched(args);
         await App.GetService<IActivationService>().ActivateAsync(args);
     }
+
 }
