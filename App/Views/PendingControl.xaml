@@ -30,7 +30,7 @@
                       SelectionMode="None"
                       Background="Transparent"
                       Padding="10"
-                      Height="700"
+                      Height="650"
                       BorderThickness="0"
                       ItemContainerStyle="{StaticResource DefaultListViewItemStyle}">
             <ListView.ItemTemplate>
