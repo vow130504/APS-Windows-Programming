@@ -13,7 +13,7 @@
 - Giao diện gọn gàng hợp lí, gần gũi với người sử dụng. 
 - Có xử lí bắt các lỗi cơ bản và các dữ liệu không đúng định dạng
 - Một số phương thức chưa được xử lí, do phải phụ thuộc vào dữ liệu ở chức năng tiếp theo: 
-	+ Quản lí tồn kho: chức năng xem chi tiết (chưa biết thông tin trong sản phẩm có liên quan đến các dữ liệu ở quá trình khác hay không ?), xuất ra file excel
+	+ Quản lí tồn kho: chức năng xem chi tiết (chưa biết thông tin trong sản phẩm có liên quan đến các dữ liệu ở quá trình khác hay không ?)
 	+ Về phần giao diện, nhóm em đang chỉ phát thảo sơ lược để hình dung, dự kiến milestone tiếp theo sẽ thống nhất về một layout chung đẹp hơn, dễ sử dụng hơn, và các chức năng cũng sẽ theo đó mà cải tiến thêm.
 ### 2. 30% design patterns/architecture: 
 - Kiến trúc phần mềm được tổ chức theo MVVM để thuận tiện cho việc mở rộng cũng như bảo trì
