@@ -56,35 +56,60 @@ public class MockDao : IDao
                 InvoiceNumber = 1,
                 TableNumber = 101,
                 CreatedTime = DateTime.Parse("2024-10-31 12:40:00"),
-                PaymentMethod = "Credit Card"
+                PaymentMethod = "Credit Card",
+                InvoiceItems = new FullObservableCollection<InvoiceItem>
+                {
+                    new InvoiceItem { Name = "Latte", Quantity = 2, Price = 45000},
+                    new InvoiceItem { Name = "Green Tea", Quantity = 1, Price = 35000 },
+                }
             },
             new()
             {
                 InvoiceNumber = 2,
                 TableNumber = 102,
                 CreatedTime = DateTime.Parse("2024-10-31 13:10:00"),
-                PaymentMethod = "Cash"
+                PaymentMethod = "Cash",
+                InvoiceItems = new FullObservableCollection<InvoiceItem>
+                {
+                    new InvoiceItem { Name = "Milk Tea", Quantity = 3, Price = 30000 },
+                    new InvoiceItem { Name = "Orange Juice", Quantity = 2, Price = 27000 },
+                }
             },
             new()
             {
                 InvoiceNumber = 3,
                 TableNumber = 103,
                 CreatedTime = DateTime.Parse("2024-10-31 14:00:00"),
-                PaymentMethod = "Debit Card"
+                PaymentMethod = "Debit Card",
+                InvoiceItems = new FullObservableCollection<InvoiceItem>
+                {
+                    new InvoiceItem { Name = "Espresso", Quantity = 1, Price = 45000 },
+                    new InvoiceItem { Name = "Black Coffee", Quantity = 2, Price = 37000 },
+                }
             },
             new()
             {
                 InvoiceNumber = 4,
                 TableNumber = 104,
                 CreatedTime = DateTime.Parse("2024-10-31 14:30:00"),
-                PaymentMethod = "Cash"
+                PaymentMethod = "Cash",
+                InvoiceItems = new FullObservableCollection<InvoiceItem>
+                {
+                    new InvoiceItem { Name = "Oolong Tea", Quantity = 3, Price = 35000 },
+                    new InvoiceItem { Name = "Apple Juice", Quantity = 1, Price = 29000 },
+                }
             },
             new()
             {
                 InvoiceNumber = 5,
                 TableNumber = 105,
                 CreatedTime = DateTime.Parse("2024-10-31 15:00:00"),
-                PaymentMethod = "Credit Card"
+                PaymentMethod = "Credit Card",
+                InvoiceItems = new FullObservableCollection<InvoiceItem>
+                {
+                    new InvoiceItem { Name = "Smoothie", Quantity = 2, Price = 45000},
+                    new InvoiceItem { Name = "Iced Latte", Quantity = 1, Price = 47000 },
+                }
             }
         };
         mockMaterials = new List<Material>
@@ -203,7 +228,7 @@ public class MockDao : IDao
         var invoice = _pendingOrders.FirstOrDefault(o => o.InvoiceNumber == orderId);
         if (invoice != null)
         {
-            invoice.AddItem(item);
+            
         }
         await Task.Delay(50);
     }
